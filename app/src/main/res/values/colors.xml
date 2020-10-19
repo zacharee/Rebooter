@@ -16,6 +16,12 @@
     <color name="reboot_1">#43a047</color>
     <color name="reboot_2">#00701a</color>
 
+    <color name="quick_reboot_1">#ff6f00</color>
+    <color name="quick_reboot_2">#ffa040</color>
+
+    <color name="kill_sysui_1">#009688</color>
+    <color name="kill_sysui_2">#52c7b8</color>
+
     <color name="safe_mode_1">#fdd835</color>
     <color name="safe_mode_2">#ffff6b</color>
 

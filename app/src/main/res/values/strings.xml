@@ -3,6 +3,8 @@
 
     <string name="shut_down">Shut Down</string>
     <string name="reboot">Reboot</string>
+    <string name="quick_reboot">Quick Reboot</string>
+    <string name="kill_system_ui">Kill System UI</string>
     <string name="safe_mode">Safe Mode</string>
     <string name="recovery">Recovery</string>
     <string name="fastboot">Fastboot</string>

@@ -7,6 +7,7 @@ fun ButtonData.handleReboot() {
         is RebootButtonData -> reboot(reason)
         is ShutDownButtonData -> shutDown()
         is SafeModeButtonData -> safeMode()
+        is CustomCommandButtonData -> customCommand(command)
     }
 }
 
@@ -24,4 +25,9 @@ fun safeMode() {
 
 fun shutDown() {
     Shell.su("svc power shutdown")
+        .exec()
+}
+
+fun customCommand(command: String) {
+    Shell.su(command).exec()
 }

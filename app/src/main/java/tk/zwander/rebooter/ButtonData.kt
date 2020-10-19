@@ -38,3 +38,13 @@ class ShutDownButtonData(
 ) : ButtonData(
     icon, name, startColor, endColor
 )
+
+class CustomCommandButtonData(
+    @DrawableRes icon: Int,
+    @StringRes name: Int,
+    @ColorRes startColor: Int,
+    @ColorRes endColor: Int,
+    val command: String
+) : ButtonData(
+    icon, name, startColor, endColor
+)
