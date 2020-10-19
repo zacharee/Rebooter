@@ -32,9 +32,26 @@ class MainActivity : AppCompatActivity() {
         buttons.adapter = ButtonAdapter()
     }
 
+    override fun onUserLeaveHint() {
+        super.onUserLeaveHint()
+
+        finishWithAnimation()
+    }
+
     override fun onPause() {
         super.onPause()
 
+        finishWithAnimation()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+        finishWithAnimation()
+    }
+
+    private fun finishWithAnimation() {
         finish()
+        overridePendingTransition(0, R.anim.exit_anim)
     }
 }
