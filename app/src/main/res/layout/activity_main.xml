@@ -3,8 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frame"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="@dimen/frame_width"
+    android:layout_height="@dimen/frame_height"
     android:fitsSystemWindows="true"
     android:clickable="true"
     android:focusable="true"
@@ -12,10 +12,10 @@
 
     <tk.zwander.rebooter.AutoFitGridRecyclerView
         android:id="@+id/buttons"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/list_width"
+        android:layout_height="@dimen/list_height"
         android:orientation="vertical"
-        android:columnWidth="124dp"
+        android:columnWidth="@dimen/column_width"
         android:layout_gravity="center"
         tools:listitem="@layout/power_button"
         />

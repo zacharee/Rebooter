@@ -3,43 +3,44 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_width="@dimen/button_frame_width"
+    android:layout_height="@dimen/button_frame_height"
     android:orientation="vertical"
     android:layout_gravity="center"
     android:gravity="center">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/power_frame"
-        android:layout_width="76dp"
-        android:layout_height="76dp"
+        android:layout_width="@dimen/card_width"
+        android:layout_height="@dimen/card_height"
         android:clickable="true"
         android:focusable="true"
-        android:layout_margin="8dp"
+        android:layout_margin="@dimen/card_margin"
         android:layout_gravity="center"
-        app:cardCornerRadius="16dp">
+        app:cardElevation="@dimen/card_elevation"
+        app:cardCornerRadius="@dimen/card_corner_radius">
 
         <ImageView
             android:id="@+id/power_background"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/button_background_width"
+            android:layout_height="@dimen/button_background_height"
             android:cropToPadding="false"
             />
 
         <ImageView
             android:id="@+id/power_shadow"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="@dimen/button_shadow_width"
+            android:layout_height="@dimen/button_shadow_height"
             android:src="@drawable/img_background"
             android:layout_gravity="bottom|end"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="@dimen/button_shadow_margin_end"
+            android:layout_marginBottom="@dimen/button_shadow_margin_bottom"
             />
 
         <ImageView
             android:id="@+id/power_icon"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="@dimen/button_icon_width"
+            android:layout_height="@dimen/button_icon_height"
             android:layout_gravity="center"
             tools:src="@drawable/power"
             />
@@ -48,10 +49,11 @@
 
     <TextView
         android:id="@+id/power_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/button_label_width"
+        android:layout_height="@dimen/button_label_height"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="@dimen/button_label_margin_bottom"
+        android:textSize="@dimen/button_label_text_size"
         android:textColor="?android:textColorPrimary"
         tools:text="@string/shut_down"
         />
