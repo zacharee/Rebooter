@@ -49,39 +49,14 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
-        val slop = ViewConfiguration.get(this).scaledTouchSlop
-
-        var downX = 0f
-        var downY = 0f
-
         buttons.adapter = ButtonAdapter()
-        buttons.setOnTouchListener { _, event ->
-            when (event.action) {
-                MotionEvent.ACTION_DOWN -> {
-                    downX = event.x
-                    downY = event.y
-                    false
-                }
-
-                MotionEvent.ACTION_UP -> {
-                    if (abs(downX - event.x) < slop
-                        && abs(downY - event.y) < slop) {
-                            finishWithAnimation()
-                        true
-                    } else {
-                        false
-                    }
-                }
-
-                else -> {
-                    false
-                }
-            }
-        }
-
-        frame.setOnClickListener {
+        buttons.setOnTouchListener(SingleTapListener {
             finishWithAnimation()
-        }
+        })
+
+        frame.setOnTouchListener(SingleTapListener {
+            finishWithAnimation()
+        })
 
         registerReceiver(
             dismissReceiver,
