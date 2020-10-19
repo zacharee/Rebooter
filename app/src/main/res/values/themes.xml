@@ -17,17 +17,13 @@
 
     <style name="Theme.Rebooter.Null" parent="Theme.Rebooter">
         <item name="android:windowAnimationStyle">@style/Theme.Rebooter.Null.WindowAnim</item>
-        <item name="android:activityOpenEnterAnimation">@anim/enter_anim</item>
-        <item name="android:activityOpenExitAnimation">@anim/exit_anim</item>
-        <item name="android:activityCloseEnterAnimation">@anim/enter_anim</item>
-        <item name="android:activityCloseExitAnimation">@anim/exit_anim</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowNoTitle">true</item>
         <item name="windowNoTitle">true</item>
-<!--        <item name="android:windowIsFloating">true</item>-->
-        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:fitsSystemWindows">true</item>
 
         <item name="android:showOnLockScreen">true</item>
         <item name="android:showWhenLocked" tools:targetApi="o_mr1">true</item>
@@ -36,5 +32,10 @@
     <style name="Theme.Rebooter.Null.WindowAnim">
         <item name="android:windowEnterAnimation">@anim/enter_anim</item>
         <item name="android:windowExitAnimation">@anim/exit_anim</item>
+
+        <item name="android:activityOpenEnterAnimation">@anim/enter_anim</item>
+        <item name="android:activityOpenExitAnimation">@anim/exit_anim</item>
+        <item name="android:activityCloseEnterAnimation">@anim/enter_anim</item>
+        <item name="android:activityCloseExitAnimation">@anim/exit_anim</item>
     </style>
 </resources>

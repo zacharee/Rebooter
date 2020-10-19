@@ -8,6 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="window_background">#55000000</color>
+
     <color name="shut_down_1">#bf360c</color>
     <color name="shut_down_2">#870000</color>
 

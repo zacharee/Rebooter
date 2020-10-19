@@ -8,12 +8,12 @@ import android.content.IntentFilter
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.MotionEvent
-import android.view.ViewConfiguration
+import android.view.ViewGroup
 import android.view.WindowManager
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import com.topjohnwu.superuser.Shell
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlin.math.abs
 
 class MainActivity : AppCompatActivity() {
     companion object {
@@ -31,10 +31,12 @@ class MainActivity : AppCompatActivity() {
         override fun onReceive(context: Context?, intent: Intent?) {
             if (intent?.action == Intent.ACTION_CLOSE_SYSTEM_DIALOGS ||
                     intent?.action == Intent.ACTION_SCREEN_OFF) {
-                finishWithAnimation()
+                finishWithAnimation(intent.action == Intent.ACTION_CLOSE_SYSTEM_DIALOGS)
             }
         }
     }
+
+    private var runningFinishAnim = false
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,8 +69,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
-
         finishWithAnimation()
     }
 
@@ -78,8 +78,27 @@ class MainActivity : AppCompatActivity() {
         unregisterReceiver(dismissReceiver)
     }
 
-    private fun finishWithAnimation() {
-        finish()
-        overridePendingTransition(0, R.anim.exit_anim)
+    private fun finishWithAnimation(isForHome: Boolean = false) {
+        if (isForHome) {
+            finish()
+            overridePendingTransition(0, R.anim.exit_anim)
+        } else {
+            if (!runningFinishAnim) {
+                runningFinishAnim = true
+
+                val anim = AnimationUtils.loadAnimation(this, R.anim.exit_anim)
+                anim.setAnimationListener(object : Animation.AnimationListener {
+                    override fun onAnimationStart(animation: Animation?) {}
+                    override fun onAnimationRepeat(animation: Animation?) {}
+
+                    override fun onAnimationEnd(animation: Animation?) {
+                        runningFinishAnim = false
+                        finish()
+                    }
+                })
+
+                (window.decorView as ViewGroup).getChildAt(0).startAnimation(anim)
+            }
+        }
     }
 }
