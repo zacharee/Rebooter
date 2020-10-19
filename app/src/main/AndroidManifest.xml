@@ -10,7 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Rebooter">
         <activity android:name=".MainActivity"
-            android:theme="@style/Theme.Rebooter.Null">
+            android:theme="@style/Theme.Rebooter.Null"
+            android:excludeFromRecents="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
