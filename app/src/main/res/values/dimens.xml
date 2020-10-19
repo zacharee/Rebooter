@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="frame_width">match_parent</dimen>
-    <dimen name="frame_height">match_parent</dimen>
+    <dimen name="frame_width">@dimen/match_parent</dimen>
+    <dimen name="frame_height">@dimen/match_parent</dimen>
 
-    <dimen name="list_width">match_parent</dimen>
-    <dimen name="list_height">wrap_content</dimen>
+    <dimen name="list_width">@dimen/match_parent</dimen>
+    <dimen name="list_height">@dimen/wrap_content</dimen>
 
     <dimen name="column_width">124dp</dimen>
 
-    <dimen name="button_frame_width">match_parent</dimen>
-    <dimen name="button_frame_height">wrap_content</dimen>
+    <dimen name="button_frame_width">@dimen/match_parent</dimen>
+    <dimen name="button_frame_height">@dimen/wrap_content</dimen>
 
     <dimen name="card_elevation">8dp</dimen>
     <dimen name="card_width">76dp</dimen>
@@ -17,8 +17,8 @@
     <dimen name="card_margin">16dp</dimen>
     <dimen name="card_corner_radius">16dp</dimen>
 
-    <dimen name="button_background_width">match_parent</dimen>
-    <dimen name="button_background_height">match_parent</dimen>
+    <dimen name="button_background_width">@dimen/match_parent</dimen>
+    <dimen name="button_background_height">@dimen/match_parent</dimen>
 
     <dimen name="button_shadow_width">48dp</dimen>
     <dimen name="button_shadow_height">48dp</dimen>
@@ -28,8 +28,11 @@
     <dimen name="button_icon_width">48dp</dimen>
     <dimen name="button_icon_height">48dp</dimen>
 
-    <dimen name="button_label_width">wrap_content</dimen>
-    <dimen name="button_label_height">wrap_content</dimen>
+    <dimen name="button_label_width">@dimen/wrap_content</dimen>
+    <dimen name="button_label_height">@dimen/wrap_content</dimen>
     <dimen name="button_label_margin_bottom">16dp</dimen>
     <dimen name="button_label_text_size">16sp</dimen>
+
+    <item name="match_parent" format="integer" type="dimen">-1</item>
+    <item name="wrap_content" format="integer" type="dimen">-2</item>
 </resources>
