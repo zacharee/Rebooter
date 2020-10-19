@@ -1,10 +1,13 @@
 package tk.zwander.rebooter
 
 import android.annotation.SuppressLint
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MotionEvent
 import android.view.ViewConfiguration
 import android.view.WindowManager
@@ -21,6 +24,15 @@ class MainActivity : AppCompatActivity() {
                     .setFlags(Shell.FLAG_REDIRECT_STDERR)
                     .setTimeout(10)
             )
+        }
+    }
+
+    private val dismissReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            if (intent?.action == Intent.ACTION_CLOSE_SYSTEM_DIALOGS ||
+                    intent?.action == Intent.ACTION_SCREEN_OFF) {
+                finishWithAnimation()
+            }
         }
     }
 
@@ -70,24 +82,25 @@ class MainActivity : AppCompatActivity() {
         frame.setOnClickListener {
             finishWithAnimation()
         }
-    }
 
-    override fun onUserLeaveHint() {
-        super.onUserLeaveHint()
-
-        finishWithAnimation()
-    }
-
-    override fun onPause() {
-        super.onPause()
-
-        finishWithAnimation()
+        registerReceiver(
+            dismissReceiver,
+            IntentFilter(Intent.ACTION_CLOSE_SYSTEM_DIALOGS).apply {
+                addAction(Intent.ACTION_SCREEN_OFF)
+            }
+        )
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
 
         finishWithAnimation()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        unregisterReceiver(dismissReceiver)
     }
 
     private fun finishWithAnimation() {
