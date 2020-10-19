@@ -11,7 +11,9 @@
         android:theme="@style/Theme.Rebooter">
         <activity android:name=".MainActivity"
             android:theme="@style/Theme.Rebooter.Null"
-            android:excludeFromRecents="true">
+            android:excludeFromRecents="true"
+            android:autoRemoveFromRecents="true"
+            android:clearTaskOnLaunch="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

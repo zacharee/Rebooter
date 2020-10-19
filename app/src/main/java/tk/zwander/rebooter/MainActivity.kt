@@ -31,4 +31,10 @@ class MainActivity : AppCompatActivity() {
 
         buttons.adapter = ButtonAdapter()
     }
+
+    override fun onPause() {
+        super.onPause()
+
+        finish()
+    }
 }
