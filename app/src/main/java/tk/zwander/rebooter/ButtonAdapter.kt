@@ -1,5 +1,7 @@
 package tk.zwander.rebooter
 
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,13 +14,13 @@ class ButtonAdapter : RecyclerView.Adapter<ButtonAdapter.ButtonHolder>() {
 
     init {
         items.addAll(arrayListOf(
-            ShutDownButtonData(R.drawable.power, R.string.shut_down, R.color.shut_down),
-            RebootButtonData(R.drawable.restart, R.string.reboot, R.color.reboot),
-            SafeModeButtonData(R.drawable.shield_check, R.string.safe_mode, R.color.safe_mode),
-            RebootButtonData(R.drawable.bug, R.string.recovery, R.color.recovery, "recovery"),
-            RebootButtonData(R.drawable.hammer_wrench, R.string.fastboot, R.color.fastboot, "bootloader"),
-            RebootButtonData(R.drawable.hammer_wrench, R.string.fastbootd, R.color.fastbootd, "fastboot"),
-            RebootButtonData(R.drawable.progress_download, R.string.download, R.color.download, "download")
+            ShutDownButtonData(R.drawable.power, R.string.shut_down, R.color.shut_down_1, R.color.shut_down_2),
+            RebootButtonData(R.drawable.restart, R.string.reboot, R.color.reboot_1, R.color.reboot_2),
+            SafeModeButtonData(R.drawable.shield_check, R.string.safe_mode, R.color.safe_mode_1, R.color.safe_mode_2),
+            RebootButtonData(R.drawable.bug, R.string.recovery, R.color.recovery_1, R.color.recovery_2, "recovery"),
+            RebootButtonData(R.drawable.hammer_wrench, R.string.fastboot, R.color.fastboot_1, R.color.fastboot_2, "bootloader"),
+            RebootButtonData(R.drawable.hammer_wrench, R.string.fastbootd, R.color.fastbootd_1, R.color.fastbootd_2, "fastboot"),
+            RebootButtonData(R.drawable.progress_download, R.string.download, R.color.download_1, R.color.download_2, "download")
         ))
     }
 
@@ -42,8 +44,14 @@ class ButtonAdapter : RecyclerView.Adapter<ButtonAdapter.ButtonHolder>() {
             itemView.apply {
                 power_icon.setImageResource(data.icon)
                 power_text.setText(data.name)
-                power_frame.setCardBackgroundColor(
-                    ContextCompat.getColor(context, data.color))
+
+                val backgroundDrawable = GradientDrawable(GradientDrawable.Orientation.TL_BR, intArrayOf(
+                    ContextCompat.getColor(context, data.startColor),
+                    ContextCompat.getColor(context, data.endColor)
+                ))
+
+                power_background.setImageDrawable(backgroundDrawable)
+                power_frame.setCardBackgroundColor(Color.TRANSPARENT)
 
                 power_frame.setOnClickListener {
                     val newData = items[adapterPosition]

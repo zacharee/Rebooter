@@ -17,8 +17,14 @@
         android:focusable="true"
         android:layout_margin="8dp"
         android:layout_gravity="center"
-        app:cardCornerRadius="16dp"
-        app:contentPadding="8dp">
+        app:cardCornerRadius="16dp">
+
+        <ImageView
+            android:id="@+id/power_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:cropToPadding="false"
+            />
 
         <ImageView
             android:id="@+id/power_shadow"
@@ -26,8 +32,8 @@
             android:layout_height="48dp"
             android:src="@drawable/img_background"
             android:layout_gravity="bottom|end"
-            android:layout_marginEnd="4dp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="12dp"
             />
 
         <ImageView

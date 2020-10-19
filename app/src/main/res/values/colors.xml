@@ -8,11 +8,24 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="shut_down">#bf360c</color>
-    <color name="reboot">#43a047</color>
-    <color name="safe_mode">#fdd835</color>
-    <color name="recovery">#2196f3</color>
-    <color name="fastboot">#5e35b1</color>
-    <color name="fastbootd">#d81b60</color>
-    <color name="download">#26c6da</color>
+    <color name="shut_down_1">#bf360c</color>
+    <color name="shut_down_2">#870000</color>
+
+    <color name="reboot_1">#43a047</color>
+    <color name="reboot_2">#00701a</color>
+
+    <color name="safe_mode_1">#fdd835</color>
+    <color name="safe_mode_2">#ffff6b</color>
+
+    <color name="recovery_1">#2196f3</color>
+    <color name="recovery_2">#0069c0</color>
+
+    <color name="fastboot_1">#5e35b1</color>
+    <color name="fastboot_2">#9162e4</color>
+
+    <color name="fastbootd_1">#d81b60</color>
+    <color name="fastbootd_2">#a00037</color>
+
+    <color name="download_1">#26c6da</color>
+    <color name="download_2">#6ff9ff</color>
 </resources>

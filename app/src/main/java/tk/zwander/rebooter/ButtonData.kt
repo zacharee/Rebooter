@@ -7,30 +7,34 @@ import androidx.annotation.StringRes
 open class ButtonData(
     @DrawableRes val icon: Int,
     @StringRes val name: Int,
-    @ColorRes val color: Int
+    @ColorRes val startColor: Int,
+    @ColorRes val endColor: Int
 )
 
 class RebootButtonData(
     @DrawableRes icon: Int,
     @StringRes name: Int,
-    @ColorRes color: Int,
+    @ColorRes startColor: Int,
+    @ColorRes endColor: Int,
     val reason: String? = null
 ) : ButtonData(
-    icon, name, color
+    icon, name, startColor, endColor
 )
 
 class SafeModeButtonData(
     @DrawableRes icon: Int,
     @StringRes name: Int,
-    @ColorRes color: Int
+    @ColorRes startColor: Int,
+    @ColorRes endColor: Int
 ) : ButtonData(
-    icon, name, color
+    icon, name, startColor, endColor
 )
 
 class ShutDownButtonData(
     @DrawableRes icon: Int,
     @StringRes name: Int,
-    @ColorRes color: Int
+    @ColorRes startColor: Int,
+    @ColorRes endColor: Int
 ) : ButtonData(
-    icon, name, color
+    icon, name, startColor, endColor
 )
