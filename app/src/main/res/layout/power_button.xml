@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:gravity="center">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/power_frame"
+        android:layout_width="84dp"
+        android:layout_height="84dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_margin="8dp"
+        android:layout_gravity="center"
+        app:cardCornerRadius="16dp"
+        app:contentPadding="8dp">
+
+        <ImageView
+            android:id="@+id/power_shadow"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/img_background"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="4dp"
+            />
+
+        <ImageView
+            android:id="@+id/power_icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            tools:src="@drawable/power"
+            />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/power_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:layout_marginBottom="16dp"
+        android:textColor="?android:textColorPrimary"
+        tools:text="@string/shut_down"
+        />
+
+</LinearLayout>

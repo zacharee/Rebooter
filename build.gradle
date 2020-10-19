@@ -1,0 +1,26 @@
+buildscript {
+    ext.kotlin_version = "1.4.20-M1"
+    repositories {
+        google()
+        jcenter()
+        maven { url = "https://dl.bintray.com/kotlin/kotlin-eap" }
+        maven { url 'https://jitpack.io' }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.2.0-alpha13'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven { url = "https://dl.bintray.com/kotlin/kotlin-eap" }
+        maven { url 'https://jitpack.io' }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

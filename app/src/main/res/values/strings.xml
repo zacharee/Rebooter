@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Rebooter</string>
+
+    <string name="shut_down">Shut Down</string>
+    <string name="reboot">Reboot</string>
+    <string name="safe_mode">Safe Mode</string>
+    <string name="recovery">Recovery</string>
+    <string name="fastboot">Fastboot</string>
+    <string name="fastbootd">Fastbootd</string>
+    <string name="download">Download</string>
+</resources>
