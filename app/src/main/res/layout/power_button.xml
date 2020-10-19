@@ -11,8 +11,8 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/power_frame"
-        android:layout_width="84dp"
-        android:layout_height="84dp"
+        android:layout_width="76dp"
+        android:layout_height="76dp"
         android:clickable="true"
         android:focusable="true"
         android:layout_margin="8dp"
@@ -32,8 +32,8 @@
             android:layout_height="48dp"
             android:src="@drawable/img_background"
             android:layout_gravity="bottom|end"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             />
 
         <ImageView
