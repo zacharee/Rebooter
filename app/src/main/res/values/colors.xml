@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="window_background">#55000000</color>
+    <color name="text_shadow_color">#000000</color>
 
     <color name="shut_down_1">#bf360c</color>
     <color name="shut_down_2">#870000</color>
@@ -36,4 +37,6 @@
 
     <color name="download_1">#26c6da</color>
     <color name="download_2">#6ff9ff</color>
+
+    <color name="button_text_color">?android:textColorPrimary</color>
 </resources>
