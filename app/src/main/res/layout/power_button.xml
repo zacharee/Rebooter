@@ -54,7 +54,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         android:layout_marginBottom="@dimen/button_label_margin_bottom"
         android:textSize="@dimen/button_label_text_size"
-        android:textColor="@color/button_text_color"
+        android:textColor="?android:textColorPrimary"
         android:shadowColor="@color/text_shadow_color"
         android:shadowDx="@integer/text_shadow_x_offset"
         android:shadowDy="@integer/text_shadow_y_offset"
