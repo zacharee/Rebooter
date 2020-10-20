@@ -28,7 +28,7 @@
     <dimen name="button_icon_width">48dp</dimen>
     <dimen name="button_icon_height">48dp</dimen>
 
-    <dimen name="button_label_width">@dimen/wrap_content</dimen>
+    <dimen name="button_label_width">@dimen/match_parent</dimen>
     <dimen name="button_label_height">@dimen/wrap_content</dimen>
     <dimen name="button_label_margin_bottom">16dp</dimen>
     <dimen name="button_label_text_size">16sp</dimen>

@@ -55,6 +55,11 @@
         android:layout_marginBottom="@dimen/button_label_margin_bottom"
         android:textSize="@dimen/button_label_text_size"
         android:textColor="?android:textColorPrimary"
+        android:shadowColor="#000"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="5"
+        android:textAlignment="center"
         tools:text="@string/shut_down"
         />
 
