@@ -1,5 +1,6 @@
 package tk.zwander.rebooter
 
+import android.content.Context
 import com.topjohnwu.superuser.Shell
 
 fun ButtonData.handleReboot() {
@@ -31,3 +32,6 @@ fun shutDown() {
 fun customCommand(command: String) {
     Shell.su(command).exec()
 }
+
+val Context.isTouchWiz: Boolean
+    get() = packageManager.hasSystemFeature("com.samsung.feature.samsung_experience_mobile")
