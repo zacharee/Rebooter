@@ -1,4 +1,4 @@
-package tk.zwander.rebooter
+package tk.zwander.rebooter.data
 
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes

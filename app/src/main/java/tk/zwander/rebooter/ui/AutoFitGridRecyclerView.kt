@@ -1,4 +1,4 @@
-package tk.zwander.rebooter
+package tk.zwander.rebooter.ui
 
 import android.content.Context
 import android.content.res.TypedArray

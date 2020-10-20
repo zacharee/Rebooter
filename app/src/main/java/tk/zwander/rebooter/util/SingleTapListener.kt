@@ -1,4 +1,4 @@
-package tk.zwander.rebooter
+package tk.zwander.rebooter.util
 
 import android.annotation.SuppressLint
 import android.view.MotionEvent

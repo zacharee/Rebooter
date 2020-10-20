@@ -1,4 +1,4 @@
-package tk.zwander.rebooter
+package tk.zwander.rebooter.ui
 
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
@@ -8,6 +8,9 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.power_button.view.*
+import tk.zwander.rebooter.R
+import tk.zwander.rebooter.data.*
+import tk.zwander.rebooter.util.handleReboot
 
 class ButtonAdapter : RecyclerView.Adapter<ButtonAdapter.ButtonHolder>() {
     private val items = ArrayList<ButtonData>()

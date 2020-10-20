@@ -5,7 +5,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.graphics.drawable.Drawable
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -15,6 +14,9 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import com.topjohnwu.superuser.Shell
 import kotlinx.android.synthetic.main.activity_main.*
+import tk.zwander.rebooter.ui.ButtonAdapter
+import tk.zwander.rebooter.util.SingleTapListener
+import tk.zwander.rebooter.util.isTouchWiz
 
 class MainActivity : AppCompatActivity() {
     companion object {

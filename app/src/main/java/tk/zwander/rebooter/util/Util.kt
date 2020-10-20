@@ -1,7 +1,8 @@
-package tk.zwander.rebooter
+package tk.zwander.rebooter.util
 
 import android.content.Context
 import com.topjohnwu.superuser.Shell
+import tk.zwander.rebooter.data.*
 
 fun ButtonData.handleReboot() {
     when (this) {

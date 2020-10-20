@@ -9,7 +9,7 @@
     android:focusable="true"
     tools:context=".MainActivity">
 
-    <tk.zwander.rebooter.AutoFitGridRecyclerView
+    <tk.zwander.rebooter.ui.AutoFitGridRecyclerView
         android:id="@+id/buttons"
         android:layout_width="@dimen/list_width"
         android:layout_height="@dimen/list_height"
