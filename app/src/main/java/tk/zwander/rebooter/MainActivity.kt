@@ -116,7 +116,7 @@ class MainActivity : AppCompatActivity() {
         window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN)
         window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
 
-        if (isTouchWiz) {
+        if (isTouchWiz && resources.getBoolean(R.bool.allow_blur)) {
             try {
                 window.attributes = window.attributes.apply {
                     val f = this::class.java
