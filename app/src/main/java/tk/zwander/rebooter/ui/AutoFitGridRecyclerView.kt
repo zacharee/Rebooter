@@ -8,6 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlin.math.floor
 
 
+/**
+ * A version of RecyclerView that uses a GridLayoutManager and automatically
+ * sets the number of columns based on a given column width and the width
+ * of the RecyclerView.
+ */
 class AutoFitGridRecyclerView(context: Context, attrs: AttributeSet) : RecyclerView(context, attrs) {
     private val manager = GridLayoutManager(context, 1)
 

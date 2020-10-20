@@ -12,6 +12,9 @@ import tk.zwander.rebooter.R
 import tk.zwander.rebooter.data.*
 import tk.zwander.rebooter.util.handleReboot
 
+/**
+ * The adapter for the power buttons.
+ */
 class ButtonAdapter : RecyclerView.Adapter<ButtonAdapter.ButtonHolder>() {
     private val items = ArrayList<ButtonData>()
 
@@ -97,12 +100,18 @@ class ButtonAdapter : RecyclerView.Adapter<ButtonAdapter.ButtonHolder>() {
         holder.onBind(items[position])
     }
 
+    /**
+     * The ViewHolder class for a given button.
+     */
     inner class ButtonHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun onBind(data: ButtonData) {
             itemView.apply {
+                //Set the proper icon and label.
                 power_icon.setImageResource(data.icon)
                 power_text.setText(data.name)
 
+                //Construct a gradient for the button background,
+                //based off the colors specified in the ButtonData.
                 val backgroundDrawable = GradientDrawable(
                     GradientDrawable.Orientation.TL_BR, intArrayOf(
                         ContextCompat.getColor(context, data.startColor),
@@ -110,10 +119,15 @@ class ButtonAdapter : RecyclerView.Adapter<ButtonAdapter.ButtonHolder>() {
                     )
                 )
 
+                //Set up the background.
                 power_background.setImageDrawable(backgroundDrawable)
                 power_frame.setCardBackgroundColor(Color.TRANSPARENT)
 
+                //Respond to click events.
                 power_frame.setOnClickListener {
+                    //It's possible the item this ViewHolder corresponds
+                    //to has changed, so grab it based on the current
+                    //position.
                     val newData = items[adapterPosition]
                     newData.handleReboot()
                 }
