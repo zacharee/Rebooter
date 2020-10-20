@@ -10,4 +10,7 @@
     <string name="fastboot">Fastboot</string>
     <string name="fastbootd">Fastbootd</string>
     <string name="download">Download</string>
+
+    <string name="blur_amount">0.2</string>
+    <string name="dim_amount">0.5</string>
 </resources>

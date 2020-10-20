@@ -107,7 +107,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateFlags() {
         fun doNormalFlags() {
-            window.setDimAmount(0.5f)
+            window.setDimAmount(resources.getString(R.string.dim_amount).toFloat())
         }
 
         window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
@@ -120,7 +120,7 @@ class MainActivity : AppCompatActivity() {
 
                     f.set(this, f.get(this) as Int or 64)
                 }
-                window.setDimAmount(0.2f)
+                window.setDimAmount(resources.getString(R.string.blur_amount).toFloat())
             } catch (e: Exception) {
                 doNormalFlags()
             }
