@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/button_frame_width"
     android:layout_height="@dimen/button_frame_height"
+    android:animateLayoutChanges="true"
     android:orientation="vertical"
     android:layout_gravity="center">
     
@@ -71,19 +72,36 @@
 
     </LinearLayout>
 
-    <ImageView
+    <com.github.florent37.shapeofview.shapes.CircleView
         android:id="@+id/remove_button"
         android:layout_width="@dimen/remove_button_width"
         android:layout_height="@dimen/remove_button_height"
-        android:src="@drawable/ic_baseline_remove_circle_24"
         android:layout_gravity="top|center"
         android:layout_marginTop="@dimen/remove_button_mar_top"
         android:layout_marginStart="@dimen/remove_button_mar_start"
         android:clickable="true"
         android:focusable="true"
-        android:background="?android:selectableItemBackgroundBorderless"
         android:visibility="gone"
-        tools:visibility="visible"
-        />
+        tools:visibility="visible">
+
+        <ImageView
+            android:id="@+id/remove_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_baseline_remove_24"
+            />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="?android:selectableItemBackground"
+            />
+
+    </com.github.florent37.shapeofview.shapes.CircleView>
 
 </FrameLayout>

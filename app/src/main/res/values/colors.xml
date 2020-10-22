@@ -37,4 +37,7 @@
 
     <color name="download_1">#26c6da</color>
     <color name="download_2">#6ff9ff</color>
+
+    <color name="remove_1">#bf360c</color>
+    <color name="remove_2">#870000</color>
 </resources>

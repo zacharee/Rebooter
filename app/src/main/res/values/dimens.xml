@@ -37,8 +37,8 @@
     <dimen name="button_label_margin_bottom">16dp</dimen>
     <dimen name="button_label_text_size">16sp</dimen>
     
-    <dimen name="remove_button_width">32dp</dimen>
-    <dimen name="remove_button_height">32dp</dimen>
+    <dimen name="remove_button_width">30dp</dimen>
+    <dimen name="remove_button_height">30dp</dimen>
     <dimen name="remove_button_mar_start">38dp</dimen>
     <dimen name="remove_button_mar_top">4dp</dimen>
 

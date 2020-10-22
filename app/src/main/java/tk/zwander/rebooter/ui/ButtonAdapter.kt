@@ -8,6 +8,9 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.skydoves.rainbow.Rainbow
+import com.skydoves.rainbow.RainbowOrientation
+import com.skydoves.rainbow.contextColor
 import kotlinx.android.synthetic.main.power_button.view.*
 import tk.zwander.rebooter.R
 import tk.zwander.rebooter.data.ButtonData
@@ -87,6 +90,14 @@ class ButtonAdapter : RecyclerView.Adapter<ButtonAdapter.ButtonHolder>() {
                     val newData = items[adapterPosition]
                     newData.handleReboot()
                 }
+
+                val drawable = Rainbow(remove_button).palette {
+                    +contextColor(R.color.remove_1)
+                    +contextColor(R.color.remove_2)
+                }.withAlpha(255)
+                    .getDrawable(RainbowOrientation.DIAGONAL_TOP_LEFT)
+
+                remove_background.setImageDrawable(drawable)
             }
         }
 
