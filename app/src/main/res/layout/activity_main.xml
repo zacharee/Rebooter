@@ -16,6 +16,11 @@
         android:orientation="vertical"
         android:columnWidth="@dimen/column_width"
         android:layout_gravity="center"
+        android:clipToPadding="false"
+        android:paddingStart="@dimen/list_padding_start"
+        android:paddingTop="@dimen/list_padding_top"
+        android:paddingEnd="@dimen/list_padding_end"
+        android:paddingBottom="@dimen/list_padding_bottom"
         tools:listitem="@layout/power_button"
         />
 

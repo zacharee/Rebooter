@@ -5,6 +5,10 @@
 
     <dimen name="list_width">@dimen/match_parent</dimen>
     <dimen name="list_height">@dimen/wrap_content</dimen>
+    <dimen name="list_padding_top">0dp</dimen>
+    <dimen name="list_padding_bottom">0dp</dimen>
+    <dimen name="list_padding_start">0dp</dimen>
+    <dimen name="list_padding_end">0dp</dimen>
 
     <dimen name="column_width">124dp</dimen>
 
