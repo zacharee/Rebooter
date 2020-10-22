@@ -3,6 +3,7 @@ package tk.zwander.rebooter.data
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import java.util.*
 
 /**
  * The base class for a power button.
@@ -15,7 +16,19 @@ open class ButtonData(
     @StringRes val name: Int,
     @ColorRes val startColor: Int,
     @ColorRes val endColor: Int
-)
+) {
+    override fun equals(other: Any?): Boolean {
+        return other is ButtonData
+                && icon == other.icon
+                && name == other.name
+                && startColor == other.startColor
+                && endColor == other.endColor
+    }
+
+    override fun hashCode(): Int {
+        return Objects.hash(icon, name, startColor, endColor)
+    }
+}
 
 /**
  * The reboot button adds a "reason"
@@ -30,7 +43,17 @@ class RebootButtonData(
     val reason: String? = null
 ) : ButtonData(
     icon, name, startColor, endColor
-)
+) {
+    override fun equals(other: Any?): Boolean {
+        return super.equals(other)
+                && other is RebootButtonData
+                && reason == other.reason
+    }
+
+    override fun hashCode(): Int {
+        return Objects.hash(icon, name, startColor, endColor, reason)
+    }
+}
 
 /**
  * The Safe Mode button has no extra
@@ -44,7 +67,17 @@ class SafeModeButtonData(
     @ColorRes endColor: Int
 ) : ButtonData(
     icon, name, startColor, endColor
-)
+) {
+    override fun equals(other: Any?): Boolean {
+        return super.equals(other)
+                && other is SafeModeButtonData
+    }
+
+    override fun hashCode(): Int {
+        //No new parameters to compare
+        return super.hashCode()
+    }
+}
 
 /**
  * The Shut Down button is in the
@@ -58,7 +91,17 @@ class ShutDownButtonData(
     @ColorRes endColor: Int
 ) : ButtonData(
     icon, name, startColor, endColor
-)
+) {
+    override fun equals(other: Any?): Boolean {
+        return super.equals(other)
+                && other is ShutDownButtonData
+    }
+
+    override fun hashCode(): Int {
+        //No new parameters to compare
+        return super.hashCode()
+    }
+}
 
 /**
  * A custom command button doesn't
@@ -75,4 +118,14 @@ class CustomCommandButtonData(
     val command: String
 ) : ButtonData(
     icon, name, startColor, endColor
-)
+) {
+    override fun equals(other: Any?): Boolean {
+        return super.equals(other)
+                && other is CustomCommandButtonData
+                && command == other.command
+    }
+
+    override fun hashCode(): Int {
+        return Objects.hash(icon, name, startColor, endColor, command)
+    }
+}

@@ -12,11 +12,14 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.topjohnwu.superuser.Shell
 import kotlinx.android.synthetic.main.activity_main.*
 import tk.zwander.rebooter.ui.ButtonAdapter
 import tk.zwander.rebooter.util.SingleTapListener
 import tk.zwander.rebooter.util.isTouchWiz
+import tk.zwander.rebooter.util.prefManager
 
 /**
  * The power dialog itself.
@@ -41,7 +44,8 @@ class MainActivity : AppCompatActivity() {
     private val dismissReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             if (intent?.action == Intent.ACTION_CLOSE_SYSTEM_DIALOGS ||
-                    intent?.action == Intent.ACTION_SCREEN_OFF) {
+                intent?.action == Intent.ACTION_SCREEN_OFF
+            ) {
                 finishWithAnimation(intent.action == Intent.ACTION_CLOSE_SYSTEM_DIALOGS)
             }
         }
@@ -68,7 +72,49 @@ class MainActivity : AppCompatActivity() {
         }
 
         //Set up the RecyclerView and Adapter.
-        buttons.adapter = ButtonAdapter()
+        val adapter = ButtonAdapter()
+        adapter.setItems(prefManager.getPowerButtons())
+        buttons.adapter = adapter
+
+        val touchHelper = ItemTouchHelper(
+            object : ItemTouchHelper.SimpleCallback(
+                ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT,
+                0
+            ) {
+                override fun onMove(
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder,
+                    target: RecyclerView.ViewHolder
+                ): Boolean {
+                    adapter.swapItems(viewHolder.adapterPosition, target.adapterPosition)
+                    prefManager.setPowerButtons(adapter.items)
+                    return true
+                }
+
+                override fun onSelectedChanged(
+                    viewHolder: RecyclerView.ViewHolder?,
+                    actionState: Int
+                ) {
+                    if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
+                        viewHolder?.itemView?.alpha = 0.5f
+                    }
+
+                    super.onSelectedChanged(viewHolder, actionState)
+                }
+
+                override fun clearView(
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder
+                ) {
+                    viewHolder.itemView.alpha = 1.0f
+
+                    super.clearView(recyclerView, viewHolder)
+                }
+
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {}
+            }
+        )
+        touchHelper.attachToRecyclerView(buttons)
 
         //If the RecyclerView or the frame itself is tapped,
         //dismiss the menu.

@@ -1,6 +1,8 @@
 package tk.zwander.rebooter.util
 
 import android.content.Context
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.topjohnwu.superuser.Shell
 import tk.zwander.rebooter.data.*
 
@@ -61,3 +63,10 @@ fun customCommand(command: String) {
  */
 val Context.isTouchWiz: Boolean
     get() = packageManager.hasSystemFeature("com.samsung.feature.samsung_experience_mobile")
+
+val Context.prefManager: PrefManager
+    get() = PrefManager.getInstance(this)
+
+fun <T> Gson.fromJson(json: String): T {
+    return fromJson(json, object : TypeToken<T>() {}.type)
+}
