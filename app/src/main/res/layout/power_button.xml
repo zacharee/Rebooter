@@ -79,6 +79,7 @@
         android:layout_gravity="top|center"
         android:layout_marginTop="@dimen/remove_button_mar_top"
         android:layout_marginStart="@dimen/remove_button_mar_start"
+        android:elevation="24dp"
         android:clickable="true"
         android:focusable="true"
         android:visibility="gone"
