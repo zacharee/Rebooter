@@ -87,6 +87,7 @@ class MainActivity : AppCompatActivity() {
                     target: RecyclerView.ViewHolder
                 ): Boolean {
                     adapter.swapItems(viewHolder.adapterPosition, target.adapterPosition)
+                    adapter.selectedIndex = -1
                     prefManager.setPowerButtons(adapter.items)
                     return true
                 }
@@ -96,6 +97,14 @@ class MainActivity : AppCompatActivity() {
                     actionState: Int
                 ) {
                     if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
+                        val index = viewHolder?.adapterPosition ?: -1
+
+                        if (adapter.selectedIndex != index) {
+                            adapter.selectedIndex = index
+                        } else {
+                            adapter.selectedIndex = -1
+                        }
+
                         viewHolder?.itemView?.alpha = 0.5f
                     }
 

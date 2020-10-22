@@ -36,6 +36,11 @@
     <dimen name="button_label_height">@dimen/wrap_content</dimen>
     <dimen name="button_label_margin_bottom">16dp</dimen>
     <dimen name="button_label_text_size">16sp</dimen>
+    
+    <dimen name="remove_button_width">32dp</dimen>
+    <dimen name="remove_button_height">32dp</dimen>
+    <dimen name="remove_button_mar_start">38dp</dimen>
+    <dimen name="remove_button_mar_top">4dp</dimen>
 
     <item name="match_parent" format="integer" type="dimen">-1</item>
     <item name="wrap_content" format="integer" type="dimen">-2</item>

@@ -1,14 +1,12 @@
 package tk.zwander.rebooter.ui
 
-import android.R.attr.data
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.power_button.view.*
 import tk.zwander.rebooter.R
@@ -23,6 +21,20 @@ import kotlin.collections.ArrayList
  */
 class ButtonAdapter : RecyclerView.Adapter<ButtonAdapter.ButtonHolder>() {
     val items = ArrayList<ButtonData>()
+
+    var selectedIndex = -1
+        set(value) {
+            field = value
+
+            indexObservable.notifyObservers(field)
+        }
+
+    private val indexObservable = object : Observable() {
+        override fun notifyObservers(arg: Any?) {
+            setChanged()
+            super.notifyObservers(arg)
+        }
+    }
 
     override fun getItemCount(): Int {
         return items.size
@@ -61,11 +73,30 @@ class ButtonAdapter : RecyclerView.Adapter<ButtonAdapter.ButtonHolder>() {
      * The ViewHolder class for a given button.
      */
     inner class ButtonHolder(view: View) : RecyclerView.ViewHolder(view) {
+        init {
+            itemView.apply {
+                indexObservable.addObserver { _, _ ->
+                    remove_button.isVisible = selectedIndex == adapterPosition
+                }
+
+                //Respond to click events.
+                power_frame.setOnClickListener {
+                    //It's possible the item this ViewHolder corresponds
+                    //to has changed, so grab it based on the current
+                    //position.
+                    val newData = items[adapterPosition]
+                    newData.handleReboot()
+                }
+            }
+        }
+
         fun onBind(data: ButtonData) {
             itemView.apply {
                 //Set the proper icon and label.
                 power_icon.setImageResource(data.icon)
                 power_text.setText(data.name)
+
+                remove_button.isVisible = selectedIndex == adapterPosition
 
                 //Construct a gradient for the button background,
                 //based off the colors specified in the ButtonData.
@@ -79,15 +110,6 @@ class ButtonAdapter : RecyclerView.Adapter<ButtonAdapter.ButtonHolder>() {
                 //Set up the background.
                 power_background.setImageDrawable(backgroundDrawable)
                 power_frame.setCardBackgroundColor(Color.TRANSPARENT)
-
-                //Respond to click events.
-                power_frame.setOnClickListener {
-                    //It's possible the item this ViewHolder corresponds
-                    //to has changed, so grab it based on the current
-                    //position.
-                    val newData = items[adapterPosition]
-                    newData.handleReboot()
-                }
             }
         }
     }

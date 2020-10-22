@@ -1,66 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/button_frame_width"
     android:layout_height="@dimen/button_frame_height"
     android:orientation="vertical"
-    android:layout_gravity="center"
-    android:gravity="center">
+    android:layout_gravity="center">
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:gravity="center">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/power_frame"
-        android:layout_width="@dimen/card_width"
-        android:layout_height="@dimen/card_height"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/power_frame"
+            android:layout_width="@dimen/card_width"
+            android:layout_height="@dimen/card_height"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_margin="@dimen/card_margin"
+            android:layout_gravity="center"
+            app:cardElevation="@dimen/card_elevation"
+            app:cardCornerRadius="@dimen/card_corner_radius">
+
+            <ImageView
+                android:id="@+id/power_background"
+                android:layout_width="@dimen/button_background_width"
+                android:layout_height="@dimen/button_background_height"
+                android:cropToPadding="false"
+                />
+
+            <ImageView
+                android:id="@+id/power_shadow"
+                android:layout_width="@dimen/button_shadow_width"
+                android:layout_height="@dimen/button_shadow_height"
+                android:src="@drawable/img_background"
+                android:layout_gravity="bottom|end"
+                android:layout_marginEnd="@dimen/button_shadow_margin_end"
+                android:layout_marginBottom="@dimen/button_shadow_margin_bottom"
+                />
+
+            <ImageView
+                android:id="@+id/power_icon"
+                android:layout_width="@dimen/button_icon_width"
+                android:layout_height="@dimen/button_icon_height"
+                android:layout_gravity="center"
+                tools:src="@drawable/power"
+                />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/power_text"
+            android:layout_width="@dimen/button_label_width"
+            android:layout_height="@dimen/button_label_height"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_marginBottom="@dimen/button_label_margin_bottom"
+            android:textSize="@dimen/button_label_text_size"
+            android:textColor="?android:textColorPrimary"
+            android:shadowColor="@color/text_shadow_color"
+            android:shadowDx="@integer/text_shadow_x_offset"
+            android:shadowDy="@integer/text_shadow_y_offset"
+            android:shadowRadius="@integer/text_shadow_radius"
+            android:textAlignment="center"
+            tools:text="@string/shut_down"
+            />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/remove_button"
+        android:layout_width="@dimen/remove_button_width"
+        android:layout_height="@dimen/remove_button_height"
+        android:src="@drawable/ic_baseline_remove_circle_24"
+        android:layout_gravity="top|center"
+        android:layout_marginTop="@dimen/remove_button_mar_top"
+        android:layout_marginStart="@dimen/remove_button_mar_start"
         android:clickable="true"
         android:focusable="true"
-        android:layout_margin="@dimen/card_margin"
-        android:layout_gravity="center"
-        app:cardElevation="@dimen/card_elevation"
-        app:cardCornerRadius="@dimen/card_corner_radius">
-
-        <ImageView
-            android:id="@+id/power_background"
-            android:layout_width="@dimen/button_background_width"
-            android:layout_height="@dimen/button_background_height"
-            android:cropToPadding="false"
-            />
-
-        <ImageView
-            android:id="@+id/power_shadow"
-            android:layout_width="@dimen/button_shadow_width"
-            android:layout_height="@dimen/button_shadow_height"
-            android:src="@drawable/img_background"
-            android:layout_gravity="bottom|end"
-            android:layout_marginEnd="@dimen/button_shadow_margin_end"
-            android:layout_marginBottom="@dimen/button_shadow_margin_bottom"
-            />
-
-        <ImageView
-            android:id="@+id/power_icon"
-            android:layout_width="@dimen/button_icon_width"
-            android:layout_height="@dimen/button_icon_height"
-            android:layout_gravity="center"
-            tools:src="@drawable/power"
-            />
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <TextView
-        android:id="@+id/power_text"
-        android:layout_width="@dimen/button_label_width"
-        android:layout_height="@dimen/button_label_height"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        android:layout_marginBottom="@dimen/button_label_margin_bottom"
-        android:textSize="@dimen/button_label_text_size"
-        android:textColor="?android:textColorPrimary"
-        android:shadowColor="@color/text_shadow_color"
-        android:shadowDx="@integer/text_shadow_x_offset"
-        android:shadowDy="@integer/text_shadow_y_offset"
-        android:shadowRadius="@integer/text_shadow_radius"
-        android:textAlignment="center"
-        tools:text="@string/shut_down"
+        android:background="?android:selectableItemBackgroundBorderless"
+        android:visibility="gone"
+        tools:visibility="visible"
         />
 
-</LinearLayout>
+</FrameLayout>
