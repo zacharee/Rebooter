@@ -87,8 +87,13 @@ class ButtonAdapter : RecyclerView.Adapter<ButtonAdapter.ButtonHolder>() {
                     //It's possible the item this ViewHolder corresponds
                     //to has changed, so grab it based on the current
                     //position.
-                    val newData = items[adapterPosition]
-                    newData.handleReboot()
+                    val pos = adapterPosition
+                    if (selectedIndex == pos) {
+                        selectedIndex = -1
+                    } else {
+                        val newData = items[pos]
+                        newData.handleReboot()
+                    }
                 }
 
                 val drawable = Rainbow(remove_button).palette {
