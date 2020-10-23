@@ -1,8 +1,11 @@
 package tk.zwander.rebooter.data
 
+import android.content.Context
+import android.graphics.drawable.Drawable
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 import java.util.*
 
 /**
@@ -12,11 +15,20 @@ import java.util.*
  * colors for its background.
  */
 open class ButtonData(
-    @DrawableRes val icon: Int,
-    @StringRes val name: Int,
-    @ColorRes val startColor: Int,
-    @ColorRes val endColor: Int
+    val icon: String,
+    val name: String,
+    val startColor: String,
+    val endColor: String
 ) {
+    @Transient
+    private var loadedIcon: Drawable? = null
+    @Transient
+    private var loadedName: String? = null
+    @Transient
+    private var loadedStartColor: Int? = null
+    @Transient
+    private var loadedEndColor: Int? = null
+
     override fun equals(other: Any?): Boolean {
         return other is ButtonData
                 && icon == other.icon
@@ -28,6 +40,47 @@ open class ButtonData(
     override fun hashCode(): Int {
         return Objects.hash(icon, name, startColor, endColor)
     }
+
+    fun loadIcon(context: Context): Drawable {
+        return loadedIcon ?: ContextCompat.getDrawable(
+            context,
+            context.resources.getIdentifier(
+                icon,
+                "drawable", context.packageName
+            )
+        )!!.apply {
+            loadedIcon = this
+        }
+    }
+
+    fun loadName(context: Context): String {
+        return loadedName ?: context.resources.getString(
+            context.resources.getIdentifier(
+                name,
+                "string", context.packageName
+            )
+        )
+    }
+
+    fun loadStartColor(context: Context): Int {
+        return loadedStartColor ?: ContextCompat.getColor(
+            context,
+            context.resources.getIdentifier(
+                startColor,
+                "color", context.packageName
+            )
+        )
+    }
+
+    fun loadEndColor(context: Context): Int {
+        return loadedEndColor ?: ContextCompat.getColor(
+            context,
+            context.resources.getIdentifier(
+                endColor,
+                "color", context.packageName
+            )
+        )
+    }
 }
 
 /**
@@ -36,10 +89,10 @@ open class ButtonData(
  * command when it's pressed.
  */
 class RebootButtonData(
-    @DrawableRes icon: Int,
-    @StringRes name: Int,
-    @ColorRes startColor: Int,
-    @ColorRes endColor: Int,
+    icon: String,
+    name: String,
+    startColor: String,
+    endColor: String,
     val reason: String? = null
 ) : ButtonData(
     icon, name, startColor, endColor
@@ -61,10 +114,10 @@ class RebootButtonData(
  * class for easy instance comparison.
  */
 class SafeModeButtonData(
-    @DrawableRes icon: Int,
-    @StringRes name: Int,
-    @ColorRes startColor: Int,
-    @ColorRes endColor: Int
+    icon: String,
+    name: String,
+    startColor: String,
+    endColor: String
 ) : ButtonData(
     icon, name, startColor, endColor
 ) {
@@ -85,10 +138,10 @@ class SafeModeButtonData(
  * button.
  */
 class ShutDownButtonData(
-    @DrawableRes icon: Int,
-    @StringRes name: Int,
-    @ColorRes startColor: Int,
-    @ColorRes endColor: Int
+    icon: String,
+    name: String,
+    startColor: String,
+    endColor: String
 ) : ButtonData(
     icon, name, startColor, endColor
 ) {
@@ -111,10 +164,10 @@ class ShutDownButtonData(
  * arbitrary command.
  */
 class CustomCommandButtonData(
-    @DrawableRes icon: Int,
-    @StringRes name: Int,
-    @ColorRes startColor: Int,
-    @ColorRes endColor: Int,
+    icon: String,
+    name: String,
+    startColor: String,
+    endColor: String,
     val command: String
 ) : ButtonData(
     icon, name, startColor, endColor

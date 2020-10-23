@@ -125,8 +125,8 @@ class ButtonAdapter(private val removalCallback: (ButtonAdapter, ButtonData) -> 
         fun onBind(data: ButtonData) {
             itemView.apply {
                 //Set the proper icon and label.
-                power_icon.setImageResource(data.icon)
-                power_text.setText(data.name)
+                power_icon.setImageDrawable(data.loadIcon(context))
+                power_text.text = data.loadName(context)
 
                 remove_button.isVisible = selectedIndex == adapterPosition
 
@@ -134,8 +134,8 @@ class ButtonAdapter(private val removalCallback: (ButtonAdapter, ButtonData) -> 
                 //based off the colors specified in the ButtonData.
                 val backgroundDrawable = GradientDrawable(
                     GradientDrawable.Orientation.TL_BR, intArrayOf(
-                        ContextCompat.getColor(context, data.startColor),
-                        ContextCompat.getColor(context, data.endColor)
+                        data.loadStartColor(context),
+                        data.loadEndColor(context)
                     )
                 )
 

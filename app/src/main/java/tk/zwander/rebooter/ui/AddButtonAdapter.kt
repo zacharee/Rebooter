@@ -25,8 +25,7 @@ class AddButtonAdapter(private val context: Context, private val selectionCallba
         }
 
         override fun compare(o1: ButtonData, o2: ButtonData): Int {
-            return context.resources.getString(o1.name)
-                .compareTo(context.resources.getString(o2.name))
+            return o1.loadName(context).compareTo(o2.loadName(context))
         }
     })
 
@@ -61,15 +60,15 @@ class AddButtonAdapter(private val context: Context, private val selectionCallba
         fun onBind(data: ButtonData) {
             itemView.apply {
                 //Set the proper icon and label.
-                power_icon.setImageResource(data.icon)
-                power_text.setText(data.name)
+                power_icon.setImageDrawable(data.loadIcon(context))
+                power_text.text = data.loadName(context)
 
                 //Construct a gradient for the button background,
                 //based off the colors specified in the ButtonData.
                 val backgroundDrawable = GradientDrawable(
                     GradientDrawable.Orientation.TL_BR, intArrayOf(
-                        ContextCompat.getColor(context, data.startColor),
-                        ContextCompat.getColor(context, data.endColor)
+                        data.loadStartColor(context),
+                        data.loadEndColor(context)
                     )
                 )
 

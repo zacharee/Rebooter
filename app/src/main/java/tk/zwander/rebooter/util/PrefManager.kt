@@ -25,63 +25,63 @@ class PrefManager private constructor(context: Context) : ContextWrapper(context
 
     val defaultButtons = arrayListOf(
         ShutDownButtonData(
-            R.drawable.power,
-            R.string.shut_down,
-            R.color.shut_down_1,
-            R.color.shut_down_2
+            "power",
+            "shut_down",
+            "shut_down_1",
+            "shut_down_2"
         ),
         RebootButtonData(
-            R.drawable.restart,
-            R.string.reboot,
-            R.color.reboot_1,
-            R.color.reboot_2
+            "restart",
+            "reboot",
+            "reboot_1",
+            "reboot_2"
         ),
         CustomCommandButtonData(
-            R.drawable.cached,
-            R.string.quick_reboot,
-            R.color.quick_reboot_1,
-            R.color.quick_reboot_2,
+            "cached",
+            "quick_reboot",
+            "quick_reboot_1",
+            "quick_reboot_2",
             "killall system_server"
         ),
         CustomCommandButtonData(
-            R.drawable.cancel,
-            R.string.kill_system_ui,
-            R.color.kill_sysui_1,
-            R.color.kill_sysui_2,
+            "cancel",
+            "kill_system_ui",
+            "kill_sysui_1",
+            "kill_sysui_2",
             "killall com.android.systemui"
         ),
         SafeModeButtonData(
-            R.drawable.shield_check,
-            R.string.safe_mode,
-            R.color.safe_mode_1,
-            R.color.safe_mode_2
+            "shield_check",
+            "safe_mode",
+            "safe_mode_1",
+            "safe_mode_2"
         ),
         RebootButtonData(
-            R.drawable.bug,
-            R.string.recovery,
-            R.color.recovery_1,
-            R.color.recovery_2,
+            "bug",
+            "recovery",
+            "recovery_1",
+            "recovery_2",
             "recovery"
         ),
         RebootButtonData(
-            R.drawable.hammer_wrench,
-            R.string.fastboot,
-            R.color.fastboot_1,
-            R.color.fastboot_2,
+            "hammer_wrench",
+            "fastboot",
+            "fastboot_1",
+            "fastboot_2",
             "bootloader"
         ),
         RebootButtonData(
-            R.drawable.hammer_wrench,
-            R.string.fastbootd,
-            R.color.fastbootd_1,
-            R.color.fastbootd_2,
+            "hammer_wrench",
+            "fastbootd",
+            "fastbootd_1",
+            "fastbootd_2",
             "fastboot"
         ),
         RebootButtonData(
-            R.drawable.progress_download,
-            R.string.download,
-            R.color.download_1,
-            R.color.download_2,
+            "progress_download",
+            "download",
+            "download_1",
+            "download_2",
             "download"
         )
     )
