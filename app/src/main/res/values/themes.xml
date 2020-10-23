@@ -14,6 +14,13 @@
 
     <style name="Theme.Rebooter.Null" parent="Theme.Rebooter">
         <item name="android:windowAnimationStyle">@style/Theme.Rebooter.Null.WindowAnim</item>
+
+        <item name="alertDialogStyle">@style/Theme.Rebooter.Dialog</item>
+        <item name="android:alertDialogStyle">@style/Theme.Rebooter.Dialog</item>
+        <item name="dialogTheme">@style/Theme.Rebooter.Dialog</item>
+        <item name="android:dialogTheme">@style/Theme.Rebooter.Dialog</item>
+        <item name="materialAlertDialogTheme">@style/Theme.Rebooter.Dialog</item>
+
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowContentOverlay">@null</item>
@@ -36,5 +43,15 @@
         <item name="android:activityOpenExitAnimation">@anim/exit_anim</item>
         <item name="android:activityCloseEnterAnimation">@anim/enter_anim</item>
         <item name="android:activityCloseExitAnimation">@anim/exit_anim</item>
+    </style>
+
+    <style name="Theme.Rebooter.Dialog" parent="Theme.MaterialComponents.Dialog.Alert">
+        <item name="android:windowEnterAnimation">@anim/enter_anim</item>
+        <item name="android:windowExitAnimation">@anim/exit_anim</item>
+
+        <item name="dialogCornerRadius">@dimen/card_corner_radius</item>
+        <item name="android:dialogCornerRadius" tools:targetApi="p">@dimen/card_corner_radius</item>
+
+        <item name="colorSurface">@null</item>
     </style>
 </resources>
