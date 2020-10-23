@@ -8,15 +8,13 @@ import android.content.IntentFilter
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import androidx.core.view.OnApplyWindowInsetsListener
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.skydoves.rainbow.Rainbow
@@ -83,6 +81,7 @@ class MainActivity : AppCompatActivity() {
         //Set up the RecyclerView and Adapter.
         val adapter = ButtonAdapter { adapter, _ ->
             prefManager.setPowerButtons(adapter.items)
+            evaluateAddButtonState(adapter)
         }
         adapter.setItems(prefManager.getPowerButtons())
         buttons.adapter = adapter
@@ -163,10 +162,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        evaluateAddButtonState(adapter)
+
         add_button.setOnClickListener {
             AddButtonDialog(this, prefManager.defaultButtons - adapter.items) {
                 adapter.addItem(it)
                 prefManager.setPowerButtons(adapter.items)
+                evaluateAddButtonState(adapter)
             }.show()
         }
 
@@ -285,5 +287,9 @@ class MainActivity : AppCompatActivity() {
             //Do a normal dim.
             doNormalFlags()
         }
+    }
+
+    private fun evaluateAddButtonState(adapter: ButtonAdapter) {
+        add_wrapper.isVisible = prefManager.defaultButtons.size > adapter.itemCount
     }
 }

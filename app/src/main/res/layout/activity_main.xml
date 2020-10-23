@@ -7,6 +7,7 @@
     android:layout_height="@dimen/frame_height"
     android:clickable="true"
     android:focusable="true"
+    android:animateLayoutChanges="true"
     android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
@@ -22,6 +23,7 @@
         android:paddingTop="@dimen/list_padding_top"
         android:paddingEnd="@dimen/list_padding_end"
         android:paddingBottom="?listPreferredItemHeightLarge"
+        android:animateLayoutChanges="false"
         tools:listitem="@layout/power_button"
         />
 
