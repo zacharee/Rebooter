@@ -181,7 +181,7 @@ class MainActivity : AppCompatActivity() {
         Rainbow(button_bar_background).palette {
             +contextColor(R.color.button_bar_1)
             +contextColor(R.color.button_bar_2)
-        }.withAlpha(200)
+        }.withAlpha(255)
             .background(RainbowOrientation.DIAGONAL_TOP_LEFT)
 
         //Register the receiver.

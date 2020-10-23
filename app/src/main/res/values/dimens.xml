@@ -49,6 +49,7 @@
 
     <dimen name="button_bar_margin_start">16dp</dimen>
     <dimen name="button_bar_margin_end">16dp</dimen>
+    <dimen name="button_bar_margin_bottom">16dp</dimen>
 
     <item name="match_parent" format="integer" type="dimen">-1</item>
     <item name="wrap_content" format="integer" type="dimen">-2</item>

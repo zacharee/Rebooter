@@ -32,6 +32,7 @@
         android:layout_gravity="bottom|center"
         android:layout_marginStart="@dimen/button_bar_margin_start"
         android:layout_marginEnd="@dimen/button_bar_margin_start"
+        android:layout_marginBottom="@dimen/button_bar_margin_bottom"
         app:cardBackgroundColor="@color/button_bar_background"
         app:cardForegroundColor="@color/button_bar_background"
         app:cardElevation="@dimen/card_elevation"
