@@ -8,14 +8,23 @@ import android.content.IntentFilter
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import androidx.core.view.OnApplyWindowInsetsListener
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.skydoves.rainbow.Rainbow
+import com.skydoves.rainbow.RainbowOrientation
+import com.skydoves.rainbow.contextColor
 import com.topjohnwu.superuser.Shell
 import kotlinx.android.synthetic.main.activity_main.*
+import tk.zwander.rebooter.ui.AddButtonDialog
 import tk.zwander.rebooter.ui.ButtonAdapter
 import tk.zwander.rebooter.util.SingleTapListener
 import tk.zwander.rebooter.util.isTouchWiz
@@ -72,7 +81,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         //Set up the RecyclerView and Adapter.
-        val adapter = ButtonAdapter()
+        val adapter = ButtonAdapter { adapter, _ ->
+            prefManager.setPowerButtons(adapter.items)
+        }
         adapter.setItems(prefManager.getPowerButtons())
         buttons.adapter = adapter
 
@@ -133,6 +144,39 @@ class MainActivity : AppCompatActivity() {
         frame.setOnTouchListener(SingleTapListener {
             finishWithAnimation()
         })
+
+        var previousNonZeroInsets: WindowInsetsCompat? = null
+
+        //Weird hacky stuff because normal window insetting doesn't work for
+        //whatever reason.
+        ViewCompat.setOnApplyWindowInsetsListener(frame) { v, insets ->
+            val systemInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+
+            if (systemInsets.left > 0 || systemInsets.top > 0 || systemInsets.right > 0 || systemInsets.bottom > 0) {
+                previousNonZeroInsets = WindowInsetsCompat(insets)
+                insets
+            } else {
+                previousNonZeroInsets ?: insets
+            }.also {
+                val properInsets = it.getInsets(WindowInsetsCompat.Type.systemBars())
+                v.setPadding(properInsets.left, properInsets.top, properInsets.right, properInsets.bottom)
+            }
+        }
+
+        add_button.setOnClickListener {
+            AddButtonDialog(this, prefManager.defaultButtons - adapter.items) {
+                adapter.addItem(it)
+                prefManager.setPowerButtons(adapter.items)
+            }.show()
+        }
+
+        add_background.setImageDrawable(
+            Rainbow(add_background).palette {
+                +contextColor(R.color.add_1)
+                +contextColor(R.color.add_2)
+            }.withAlpha(255)
+                .getDrawable(RainbowOrientation.DIAGONAL_TOP_LEFT)
+        )
 
         //Register the receiver.
         registerReceiver(
@@ -212,6 +256,7 @@ class MainActivity : AppCompatActivity() {
         //Make sure the window shows behind the system bars.
         window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN)
         window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+        window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_INSET_DECOR)
 
         if (isTouchWiz && resources.getBoolean(R.bool.allow_blur)) {
             //This is a Samsung device and the resource value allows us to

@@ -40,4 +40,7 @@
 
     <color name="remove_1">#bf360c</color>
     <color name="remove_2">#870000</color>
+
+    <color name="add_1">#4caf50</color>
+    <color name="add_2">#087f23</color>
 </resources>

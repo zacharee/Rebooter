@@ -22,7 +22,7 @@ import kotlin.collections.ArrayList
 /**
  * The adapter for the power buttons.
  */
-class ButtonAdapter : RecyclerView.Adapter<ButtonAdapter.ButtonHolder>() {
+class ButtonAdapter(private val removalCallback: (ButtonAdapter, ButtonData) -> Unit) : RecyclerView.Adapter<ButtonAdapter.ButtonHolder>() {
     val items = ArrayList<ButtonData>()
 
     var selectedIndex = -1
@@ -56,6 +56,12 @@ class ButtonAdapter : RecyclerView.Adapter<ButtonAdapter.ButtonHolder>() {
 
     fun setItems(items: List<ButtonData>) {
         this.items.addAll(items)
+        notifyDataSetChanged()
+    }
+
+    fun addItem(item: ButtonData) {
+        items.add(item)
+        notifyItemInserted(items.size - 1)
     }
 
     fun swapItems(fromPosition: Int, toPosition: Int) {
@@ -94,6 +100,16 @@ class ButtonAdapter : RecyclerView.Adapter<ButtonAdapter.ButtonHolder>() {
                         val newData = items[pos]
                         newData.handleReboot()
                     }
+                }
+
+                remove_button.setOnClickListener {
+                    val pos = adapterPosition
+                    val data = items.removeAt(pos)
+
+                    notifyItemRemoved(pos)
+                    selectedIndex = -1
+
+                    removalCallback(this@ButtonAdapter, data)
                 }
 
                 val drawable = Rainbow(remove_button).palette {

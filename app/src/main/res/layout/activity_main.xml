@@ -7,6 +7,7 @@
     android:layout_height="@dimen/frame_height"
     android:clickable="true"
     android:focusable="true"
+    android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
     <tk.zwander.rebooter.ui.AutoFitGridRecyclerView
@@ -20,8 +21,45 @@
         android:paddingStart="@dimen/list_padding_start"
         android:paddingTop="@dimen/list_padding_top"
         android:paddingEnd="@dimen/list_padding_end"
-        android:paddingBottom="@dimen/list_padding_bottom"
+        android:paddingBottom="?listPreferredItemHeightLarge"
         tools:listitem="@layout/power_button"
         />
+
+    <FrameLayout
+        android:id="@+id/add_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="?listPreferredItemHeightLarge"
+        android:layout_gravity="bottom|center">
+
+        <com.github.florent37.shapeofview.shapes.CircleView
+            android:id="@+id/add_button"
+            android:layout_width="@dimen/add_button_width"
+            android:layout_height="@dimen/add_button_height"
+            android:elevation="24dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/add_background"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_baseline_add_24"
+                />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?android:selectableItemBackground"
+                />
+
+        </com.github.florent37.shapeofview.shapes.CircleView>
+
+    </FrameLayout>
 
 </FrameLayout>

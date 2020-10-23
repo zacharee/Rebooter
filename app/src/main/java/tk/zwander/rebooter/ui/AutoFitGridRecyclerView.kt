@@ -1,8 +1,10 @@
 package tk.zwander.rebooter.ui
 
 import android.content.Context
+import android.content.res.Configuration
 import android.content.res.TypedArray
 import android.util.AttributeSet
+import android.util.Log
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlin.math.floor
@@ -33,9 +35,14 @@ class AutoFitGridRecyclerView(context: Context, attrs: AttributeSet) : RecyclerV
 
     override fun onMeasure(widthSpec: Int, heightSpec: Int) {
         super.onMeasure(widthSpec, heightSpec)
-        if (columnWidth > 0) {
-            val spanCount = 1.coerceAtLeast(floor(measuredWidth.toFloat() / columnWidth).toInt())
-            manager.spanCount = spanCount
+
+        post {
+            if (columnWidth > 0) {
+                val spanCount = 1.coerceAtLeast(floor(measuredWidth.toFloat() / columnWidth).toInt())
+                if (spanCount != manager.spanCount) {
+                    manager.spanCount = spanCount
+                }
+            }
         }
     }
 }

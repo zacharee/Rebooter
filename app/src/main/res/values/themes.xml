@@ -19,10 +19,10 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowNoTitle">true</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:fitsSystemWindows">false</item>
 
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
 
         <item name="android:showOnLockScreen">true</item>
         <item name="android:showWhenLocked" tools:targetApi="o_mr1">true</item>
