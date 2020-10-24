@@ -44,12 +44,15 @@
 
     <dimen name="add_button_width">48dp</dimen>
     <dimen name="add_button_height">48dp</dimen>
+    <dimen name="add_button_elevation">4dp</dimen>
 
     <dimen name="add_dialog_list_padding">16dp</dimen>
 
     <dimen name="button_bar_margin_start">16dp</dimen>
     <dimen name="button_bar_margin_end">16dp</dimen>
     <dimen name="button_bar_margin_bottom">16dp</dimen>
+    <dimen name="button_bar_width">@dimen/wrap_content</dimen>
+    <dimen name="button_bar_height">60dp</dimen>
 
     <item name="match_parent" format="integer" type="dimen">-1</item>
     <item name="wrap_content" format="integer" type="dimen">-2</item>

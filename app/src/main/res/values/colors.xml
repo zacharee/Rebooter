@@ -44,8 +44,8 @@
     <color name="add_1">#4caf50</color>
     <color name="add_2">#087f23</color>
 
-    <color name="button_bar_1">#37474f</color>
-    <color name="button_bar_2">#102027</color>
+    <color name="dialog_1">#37474f</color>
+    <color name="dialog_2">#102027</color>
 
     <color name="button_bar_background">@android:color/transparent</color>
 </resources>

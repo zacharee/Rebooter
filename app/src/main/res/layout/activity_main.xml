@@ -9,6 +9,8 @@
     android:focusable="true"
     android:animateLayoutChanges="true"
     android:fitsSystemWindows="true"
+    android:clipChildren="false"
+    android:clipToPadding="false"
     tools:context=".MainActivity">
 
     <tk.zwander.rebooter.ui.AutoFitGridRecyclerView
@@ -23,36 +25,32 @@
         android:paddingTop="@dimen/list_padding_top"
         android:paddingEnd="@dimen/list_padding_end"
         android:animateLayoutChanges="false"
-        android:paddingBottom="?listPreferredItemHeightLarge"
+        android:paddingBottom="@dimen/button_bar_height"
         tools:listitem="@layout/power_button"
         />
 
-    <com.google.android.material.card.MaterialCardView
+    <LinearLayout
         android:id="@+id/add_wrapper"
-        android:layout_width="match_parent"
-        android:layout_height="?listPreferredItemHeightLarge"
+        android:layout_width="@dimen/button_bar_width"
+        android:layout_height="@dimen/button_bar_height"
         android:layout_gravity="bottom|center"
         android:layout_marginStart="@dimen/button_bar_margin_start"
         android:layout_marginEnd="@dimen/button_bar_margin_start"
         android:layout_marginBottom="@dimen/button_bar_margin_bottom"
-        app:cardBackgroundColor="@color/button_bar_background"
-        app:cardForegroundColor="@color/button_bar_background"
-        app:cardElevation="@dimen/card_elevation"
-        app:cardCornerRadius="@dimen/card_corner_radius">
-
-        <FrameLayout
-            android:id="@+id/button_bar_background"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
+        android:orientation="horizontal"
+        android:clipToPadding="false"
+        android:clipChildren="false"
+        android:background="@color/button_bar_background">
 
         <com.github.florent37.shapeofview.shapes.CircleView
             android:id="@+id/add_button"
             android:layout_width="@dimen/add_button_width"
             android:layout_height="@dimen/add_button_height"
-            android:elevation="24dp"
+            android:elevation="@dimen/add_button_elevation"
             android:clickable="true"
             android:focusable="true"
+            android:clipChildren="false"
+            android:clipToPadding="false"
             android:layout_gravity="center">
 
             <ImageView
@@ -75,6 +73,6 @@
 
         </com.github.florent37.shapeofview.shapes.CircleView>
 
-    </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
 
 </FrameLayout>
