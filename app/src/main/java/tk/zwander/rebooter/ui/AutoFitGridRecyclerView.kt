@@ -36,9 +36,12 @@ class AutoFitGridRecyclerView(context: Context, attrs: AttributeSet) : RecyclerV
     override fun onMeasure(widthSpec: Int, heightSpec: Int) {
         super.onMeasure(widthSpec, heightSpec)
 
+        //This "post" prevents a weird measurement loop
+        //when in a dialog.
         post {
             if (columnWidth > 0) {
-                val spanCount = 1.coerceAtLeast(floor(measuredWidth.toFloat() / columnWidth).toInt())
+                val spanCount = 1.coerceAtLeast(
+                    floor(measuredWidth.toFloat() / columnWidth).toInt())
                 if (spanCount != manager.spanCount) {
                     manager.spanCount = spanCount
                 }

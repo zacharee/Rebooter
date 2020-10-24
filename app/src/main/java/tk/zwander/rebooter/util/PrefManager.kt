@@ -8,21 +8,43 @@ import com.google.gson.GsonBuilder
 import tk.zwander.rebooter.R
 import tk.zwander.rebooter.data.*
 
+/**
+ * Manage any SharedPreferences values.
+ */
 class PrefManager private constructor(context: Context) : ContextWrapper(context) {
     companion object {
+        /**
+         * The preference key for the list of power buttons
+         * as ordered by the user.
+         */
         const val KEY_BUTTONS = "buttons_list"
 
+        /**
+         * This is a singleton, so store the instance for
+         * later retrieval.
+         */
         private var instance: PrefManager? = null
 
+        /**
+         * Get the PrefManager instance. If no instance
+         * currently exists, a new one will be created.
+         */
         fun getInstance(context: Context): PrefManager {
-            return instance ?: PrefManager(context.applicationContext).apply {
-                instance = this
-            }
+            return instance ?: PrefManager(context.applicationContext)
+                .apply {
+                    instance = this
+                }
         }
     }
 
+    /**
+     * Get a reference to the actual SharedPreferences.
+     */
     val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
 
+    /**
+     * The default buttons and their order.
+     */
     val defaultButtons = arrayListOf(
         ShutDownButtonData(
             "power",
@@ -86,10 +108,18 @@ class PrefManager private constructor(context: Context) : ContextWrapper(context
         )
     )
 
+    /**
+     * A Gson instance for serializing and deserializing data.
+     */
     private val gson = GsonBuilder()
         .registerTypeHierarchyAdapter(ButtonData::class.java, GenericSerializer())
         .create()
 
+    /**
+     * Get the list of user-customized power buttons,
+     * returning the default list if there's nothing
+     * in the preferences.
+     */
     fun getPowerButtons(): ArrayList<ButtonData> {
         val buttonsString = sharedPreferences.getString(KEY_BUTTONS, null)
 
@@ -105,6 +135,9 @@ class PrefManager private constructor(context: Context) : ContextWrapper(context
         return ret
     }
 
+    /**
+     * Update the user-specified buttons.
+     */
     fun setPowerButtons(buttons: List<ButtonData>) {
         sharedPreferences.edit {
             val set = ArrayList<String>()

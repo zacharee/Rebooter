@@ -59,6 +59,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
+     * The adapter for the power buttons.
+     * Takes a callback for when a button is removed.
+     */
+    private val adapter = ButtonAdapter { adapter, _ ->
+        prefManager.setPowerButtons(adapter.items)
+        evaluateAddButtonState()
+    }
+
+    /**
      * A flag to avoid sequential runs of the closing
      * animation.
      */
@@ -69,122 +78,21 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //We want the Activity to show on the lock screen.
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O) {
-            setShowWhenLocked(true)
-        } else {
-            window.addFlags(
-                WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
-            )
-        }
-
-        //Set up the RecyclerView and Adapter.
-        val adapter = ButtonAdapter { adapter, _ ->
-            prefManager.setPowerButtons(adapter.items)
-            evaluateAddButtonState(adapter)
-        }
-        adapter.setItems(prefManager.getPowerButtons())
-        buttons.adapter = adapter
-
-        val touchHelper = ItemTouchHelper(
-            object : ItemTouchHelper.SimpleCallback(
-                ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT,
-                0
-            ) {
-                override fun onMove(
-                    recyclerView: RecyclerView,
-                    viewHolder: RecyclerView.ViewHolder,
-                    target: RecyclerView.ViewHolder
-                ): Boolean {
-                    adapter.swapItems(viewHolder.adapterPosition, target.adapterPosition)
-                    adapter.selectedIndex = -1
-                    prefManager.setPowerButtons(adapter.items)
-                    return true
-                }
-
-                override fun onSelectedChanged(
-                    viewHolder: RecyclerView.ViewHolder?,
-                    actionState: Int
-                ) {
-                    if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
-                        val index = viewHolder?.adapterPosition ?: -1
-
-                        if (adapter.selectedIndex != index) {
-                            adapter.selectedIndex = index
-                        } else {
-                            adapter.selectedIndex = -1
-                        }
-
-                        viewHolder?.itemView?.alpha = 0.5f
-                    }
-
-                    super.onSelectedChanged(viewHolder, actionState)
-                }
-
-                override fun clearView(
-                    recyclerView: RecyclerView,
-                    viewHolder: RecyclerView.ViewHolder
-                ) {
-                    viewHolder.itemView.alpha = 1.0f
-
-                    super.clearView(recyclerView, viewHolder)
-                }
-
-                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {}
-            }
-        )
-        touchHelper.attachToRecyclerView(buttons)
-
-        //If the RecyclerView or the frame itself is tapped,
-        //dismiss the menu.
-        buttons.setOnTouchListener(SingleTapListener {
-            finishWithAnimation()
-        })
-        frame.setOnTouchListener(SingleTapListener {
-            finishWithAnimation()
-        })
-
-        var previousNonZeroInsets: WindowInsetsCompat? = null
-
-        //Weird hacky stuff because normal window insetting doesn't work for
-        //whatever reason.
-        ViewCompat.setOnApplyWindowInsetsListener(frame) { v, insets ->
-            val systemInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-
-            if (systemInsets.left > 0 || systemInsets.top > 0 || systemInsets.right > 0 || systemInsets.bottom > 0) {
-                previousNonZeroInsets = WindowInsetsCompat(insets)
-                insets
-            } else {
-                previousNonZeroInsets ?: insets
-            }.also {
-                val properInsets = it.getInsets(WindowInsetsCompat.Type.systemBars())
-                v.setPadding(properInsets.left, properInsets.top, properInsets.right, properInsets.bottom)
-            }
-        }
-
-        evaluateAddButtonState(adapter)
+        //General setup
+        enableShowOnLockscreen()
+        setUpRecycler()
+        setUpDismissListeners()
+        setUpInsets()
+        evaluateAddButtonState()
+        setUpGradients()
 
         add_button.setOnClickListener {
             AddButtonDialog(this, prefManager.defaultButtons - adapter.items) {
                 adapter.addItem(it)
                 prefManager.setPowerButtons(adapter.items)
-                evaluateAddButtonState(adapter)
+                evaluateAddButtonState()
             }.show()
         }
-
-        add_background.setImageDrawable(
-            Rainbow(add_background).palette {
-                +contextColor(R.color.add_1)
-                +contextColor(R.color.add_2)
-            }.withAlpha(255)
-                .getDrawable(RainbowOrientation.DIAGONAL_TOP_LEFT)
-        )
-
-        Rainbow(button_bar_background).palette {
-            +contextColor(R.color.button_bar_1)
-            +contextColor(R.color.button_bar_2)
-        }.withAlpha(255)
-            .background(RainbowOrientation.DIAGONAL_TOP_LEFT)
 
         //Register the receiver.
         registerReceiver(
@@ -289,7 +197,151 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun evaluateAddButtonState(adapter: ButtonAdapter) {
+    /**
+     * The "add" button should only be shown if there
+     * are power buttons not currently added to the RecyclerView.
+     */
+    private fun evaluateAddButtonState() {
         add_wrapper.isVisible = prefManager.defaultButtons.size > adapter.itemCount
+    }
+
+    /**
+     * Allow this Activity to show over the lock screen.
+     */
+    private fun enableShowOnLockscreen() {
+        //We want the Activity to show on the lock screen.
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O) {
+            setShowWhenLocked(true)
+        } else {
+            window.addFlags(
+                WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
+            )
+        }
+    }
+
+    /**
+     * Set up the RecyclerView and its Adapter.
+     */
+    private fun setUpRecycler() {
+        //Set up the RecyclerView and Adapter.
+        adapter.setItems(prefManager.getPowerButtons())
+        buttons.adapter = adapter
+
+        //Drag-n-drop support.
+        val touchHelper = ItemTouchHelper(
+            object : ItemTouchHelper.SimpleCallback(
+                ItemTouchHelper.UP or ItemTouchHelper.DOWN
+                        or ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT,
+                0
+            ) {
+                override fun onMove(
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder,
+                    target: RecyclerView.ViewHolder
+                ): Boolean {
+                    //An item has been moved. Update the adapter.
+                    adapter.swapItems(viewHolder.adapterPosition, target.adapterPosition)
+                    //Hide any "remove" buttons.
+                    adapter.selectedIndex = -1
+                    //Update the preference value.
+                    prefManager.setPowerButtons(adapter.items)
+                    return true
+                }
+
+                override fun onSelectedChanged(
+                    viewHolder: RecyclerView.ViewHolder?,
+                    actionState: Int
+                ) {
+                    if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
+                        val index = viewHolder?.adapterPosition ?: -1
+
+                        //Show or hide the remove button depending
+                        //on the current index.
+                        if (adapter.selectedIndex != index) {
+                            adapter.selectedIndex = index
+                        } else {
+                            adapter.selectedIndex = -1
+                        }
+
+                        //Set the button transparency to 50%
+                        //to indicate it's being dragged.
+                        viewHolder?.itemView?.alpha = 0.5f
+                    }
+
+                    super.onSelectedChanged(viewHolder, actionState)
+                }
+
+                override fun clearView(
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder
+                ) {
+                    //Reset the button transparency.
+                    viewHolder.itemView.alpha = 1.0f
+
+                    super.clearView(recyclerView, viewHolder)
+                }
+
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {}
+            }
+        )
+        touchHelper.attachToRecyclerView(buttons)
+    }
+
+    /**
+     * Tapping an empty area in the Activity should dismiss it.
+     */
+    private fun setUpDismissListeners() {
+        //If the RecyclerView or the frame itself is tapped,
+        //dismiss the menu.
+        buttons.setOnTouchListener(SingleTapListener {
+            finishWithAnimation()
+        })
+        frame.setOnTouchListener(SingleTapListener {
+            finishWithAnimation()
+        })
+    }
+
+    /**
+     * Android's fitsSystemWindows flag stuff is pretty broken, and it doesn't
+     * properly report insets. This is a bit of a hacky workaround to make sure
+     * insets are properly applied.
+     */
+    private fun setUpInsets() {
+        var previousNonZeroInsets: WindowInsetsCompat? = null
+
+        //Weird hacky stuff because normal window insetting doesn't work for
+        //whatever reason.
+        ViewCompat.setOnApplyWindowInsetsListener(frame) { v, insets ->
+            val systemInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+
+            if (systemInsets.left > 0 || systemInsets.top > 0 || systemInsets.right > 0 || systemInsets.bottom > 0) {
+                previousNonZeroInsets = WindowInsetsCompat(insets)
+                insets
+            } else {
+                previousNonZeroInsets ?: insets
+            }.also {
+                val properInsets = it.getInsets(WindowInsetsCompat.Type.systemBars())
+                v.setPadding(properInsets.left, properInsets.top, properInsets.right, properInsets.bottom)
+            }
+        }
+    }
+
+    /**
+     * Everyone loves a good gradient.
+     */
+    private fun setUpGradients() {
+        add_background.setImageDrawable(
+            Rainbow(add_background).palette {
+                +contextColor(R.color.add_1)
+                +contextColor(R.color.add_2)
+            }.withAlpha(255)
+                .getDrawable(RainbowOrientation.DIAGONAL_TOP_LEFT)
+        )
+
+        Rainbow(button_bar_background).palette {
+            +contextColor(R.color.button_bar_1)
+            +contextColor(R.color.button_bar_2)
+        }.withAlpha(255)
+            .background(RainbowOrientation.DIAGONAL_TOP_LEFT)
     }
 }

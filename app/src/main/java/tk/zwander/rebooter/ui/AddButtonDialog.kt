@@ -8,6 +8,10 @@ import kotlinx.android.synthetic.main.add_button_dialog.*
 import tk.zwander.rebooter.R
 import tk.zwander.rebooter.data.ButtonData
 
+/**
+ * The dialog containing the list of buttons that can be
+ * added to the main list.
+ */
 class AddButtonDialog(
     context: Context,
     private val items: List<ButtonData>,
@@ -23,18 +27,25 @@ class AddButtonDialog(
 
     override fun create(): AlertDialog {
         return super.create().also {
-            it.window?.attributes?.windowAnimations = R.style.Theme_Rebooter_Dialog
+            //Make sure the proper animations are applied,
+            //since the dialogTheme style attributes aren't reliable.
+            it.window?.attributes
+                ?.windowAnimations = R.style.Theme_Rebooter_Dialog
         }
     }
 
     override fun show(): AlertDialog {
         return super.show().also { dialog ->
+            //Initialize the adapter with the available
+            //buttons.
             val adapter = AddButtonAdapter(context) {
                 selectionCallback(it)
                 dialog.dismiss()
             }
             adapter.setItems(items)
 
+            //Set the adapter with a slight delay to
+            //allow the open animation to play.
             dialog.buttons_list.postDelayed({
                 dialog.buttons_list.adapter = adapter
             }, 100)

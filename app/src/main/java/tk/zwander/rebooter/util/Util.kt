@@ -64,9 +64,16 @@ fun customCommand(command: String) {
 val Context.isTouchWiz: Boolean
     get() = packageManager.hasSystemFeature("com.samsung.feature.samsung_experience_mobile")
 
+/**
+ * Get the PrefManager instance.
+ */
 val Context.prefManager: PrefManager
     get() = PrefManager.getInstance(this)
 
+/**
+ * A convenience method for Gson to automatically
+ * provide a class' type.
+ */
 fun <T> Gson.fromJson(json: String): T {
     return fromJson(json, object : TypeToken<T>() {}.type)
 }

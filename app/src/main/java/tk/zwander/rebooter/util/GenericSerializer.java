@@ -11,6 +11,11 @@ import com.google.gson.JsonSerializer;
 
 import java.lang.reflect.Type;
 
+/**
+ * Taken from: https://stackoverflow.com/a/40084718/5496177.
+ *
+ * Properly handles serializing and deserializing base/sub classes.
+ */
 public class GenericSerializer implements JsonSerializer<Object>, JsonDeserializer<Object> {
         private static final String CLASS_PROPERTY_NAME = "class";
         private final Gson gson;
@@ -26,8 +31,7 @@ public class GenericSerializer implements JsonSerializer<Object>, JsonDeserializ
         @Override
         public Object deserialize(JsonElement json, Type typeOfT,
                                   JsonDeserializationContext context) throws JsonParseException {
-
-            Class actualClass;
+            Class<?> actualClass;
             if (json.isJsonObject()) {
                 JsonObject jsonObject = json.getAsJsonObject();
                 String className = jsonObject.get(CLASS_PROPERTY_NAME).getAsString();

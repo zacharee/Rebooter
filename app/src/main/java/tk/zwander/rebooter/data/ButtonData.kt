@@ -13,6 +13,11 @@ import java.util.*
  * Each power button needs to have an icon
  * reference, a label reference, and two
  * colors for its background.
+ *
+ * Each parameter here is meant to take the name of
+ * the appropriate resource. For instance, if the
+ * icon is R.drawable.shut_down, the "icon" parameter
+ * should be "shut_down".
  */
 open class ButtonData(
     val icon: String,
@@ -20,6 +25,10 @@ open class ButtonData(
     val startColor: String,
     val endColor: String
 ) {
+    /**
+     * Keep loaded values stored for faster future loads.
+     * These aren't persisted in preferences.
+     */
     @Transient
     private var loadedIcon: Drawable? = null
     @Transient
@@ -41,6 +50,9 @@ open class ButtonData(
         return Objects.hash(icon, name, startColor, endColor)
     }
 
+    /**
+     * Load the icon for this button.
+     */
     fun loadIcon(context: Context): Drawable {
         return loadedIcon ?: ContextCompat.getDrawable(
             context,
@@ -53,6 +65,9 @@ open class ButtonData(
         }
     }
 
+    /**
+     * Load the name/label for this button.
+     */
     fun loadName(context: Context): String {
         return loadedName ?: context.resources.getString(
             context.resources.getIdentifier(
@@ -62,6 +77,10 @@ open class ButtonData(
         )
     }
 
+    /**
+     * Load the starting color for the background gradient
+     * of this button.
+     */
     fun loadStartColor(context: Context): Int {
         return loadedStartColor ?: ContextCompat.getColor(
             context,
@@ -72,6 +91,10 @@ open class ButtonData(
         )
     }
 
+    /**
+     * Load the ending color for the background gradient
+     * of this button.
+     */
     fun loadEndColor(context: Context): Int {
         return loadedEndColor ?: ContextCompat.getColor(
             context,
@@ -179,6 +202,7 @@ class CustomCommandButtonData(
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(icon, name, startColor, endColor, command)
+        return Objects.hash(icon, name,
+            startColor, endColor, command)
     }
 }
