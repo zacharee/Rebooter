@@ -22,8 +22,8 @@
         android:paddingStart="@dimen/list_padding_start"
         android:paddingTop="@dimen/list_padding_top"
         android:paddingEnd="@dimen/list_padding_end"
-        android:paddingBottom="?listPreferredItemHeightLarge"
         android:animateLayoutChanges="false"
+        android:paddingBottom="?listPreferredItemHeightLarge"
         tools:listitem="@layout/power_button"
         />
 

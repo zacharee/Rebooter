@@ -1,12 +1,11 @@
 package tk.zwander.rebooter.ui
 
 import android.content.Context
-import android.content.res.Configuration
 import android.content.res.TypedArray
 import android.util.AttributeSet
-import android.util.Log
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.TransitionManager
 import kotlin.math.floor
 
 
@@ -40,8 +39,8 @@ class AutoFitGridRecyclerView(context: Context, attrs: AttributeSet) : RecyclerV
         //when in a dialog.
         post {
             if (columnWidth > 0) {
-                val spanCount = 1.coerceAtLeast(
-                    floor(measuredWidth.toFloat() / columnWidth).toInt())
+                val spanCount = 1
+                    .coerceAtLeast(floor(measuredWidth.toFloat() / columnWidth).toInt())
                     .run {
                         val itemCount = manager.itemCount
 
@@ -51,8 +50,29 @@ class AutoFitGridRecyclerView(context: Context, attrs: AttributeSet) : RecyclerV
                             this
                         }
                     }
-                if (spanCount != manager.spanCount) {
-                    manager.spanCount = spanCount
+                    .run {
+                        val itemCount = manager.itemCount
+
+                        val count = this
+
+                        if (itemCount > 0 && itemCount % count != 0) {
+                            for (i in count - 1 downTo 2) {
+                                if (itemCount % i == 0) {
+                                    return@run i
+                                }
+                            }
+
+                            count
+                        } else {
+                            count
+                        }
+                    }
+
+                itemAnimator?.isRunning {
+                    if (spanCount != manager.spanCount) {
+                        TransitionManager.beginDelayedTransition(this)
+                        manager.spanCount = spanCount
+                    }
                 }
             }
         }

@@ -1,5 +1,6 @@
 package tk.zwander.rebooter
 
+import android.animation.LayoutTransition
 import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -10,8 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
+import android.view.animation.*
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
@@ -24,6 +24,7 @@ import com.topjohnwu.superuser.Shell
 import kotlinx.android.synthetic.main.activity_main.*
 import tk.zwander.rebooter.ui.AddButtonDialog
 import tk.zwander.rebooter.ui.ButtonAdapter
+import tk.zwander.rebooter.util.FadeScaleAnimator
 import tk.zwander.rebooter.util.SingleTapListener
 import tk.zwander.rebooter.util.isTouchWiz
 import tk.zwander.rebooter.util.prefManager
@@ -85,6 +86,10 @@ class MainActivity : AppCompatActivity() {
         setUpInsets()
         evaluateAddButtonState()
         setUpGradients()
+
+        frame.layoutTransition?.apply {
+            enableTransitionType(LayoutTransition.CHANGING)
+        }
 
         add_button.setOnClickListener {
             AddButtonDialog(this, prefManager.defaultButtons - adapter.items) {
@@ -226,6 +231,13 @@ class MainActivity : AppCompatActivity() {
         //Set up the RecyclerView and Adapter.
         adapter.setItems(prefManager.getPowerButtons())
         buttons.adapter = adapter
+
+        buttons.itemAnimator = FadeScaleAnimator(AnticipateOvershootInterpolator()).apply {
+            val medAnim = resources.getInteger(android.R.integer.config_mediumAnimTime)
+
+            addDuration = medAnim.toLong()
+            removeDuration = medAnim.toLong()
+        }
 
         //Drag-n-drop support.
         val touchHelper = ItemTouchHelper(

@@ -49,6 +49,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.github.skydoves:rainbow:1.0.3'
     implementation 'com.github.florent37:shapeofview:1.4.7'
+    implementation 'jp.wasabeef:recyclerview-animators:4.0.1'
 
     implementation 'com.google.firebase:firebase-analytics-ktx:17.6.0'
     implementation 'com.google.firebase:firebase-crashlytics-ktx:17.2.2'
