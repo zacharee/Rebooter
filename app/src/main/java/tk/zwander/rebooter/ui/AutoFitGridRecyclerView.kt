@@ -42,6 +42,15 @@ class AutoFitGridRecyclerView(context: Context, attrs: AttributeSet) : RecyclerV
             if (columnWidth > 0) {
                 val spanCount = 1.coerceAtLeast(
                     floor(measuredWidth.toFloat() / columnWidth).toInt())
+                    .run {
+                        val itemCount = manager.itemCount
+
+                        if (itemCount > 0) {
+                            coerceAtMost(itemCount)
+                        } else {
+                            this
+                        }
+                    }
                 if (spanCount != manager.spanCount) {
                     manager.spanCount = spanCount
                 }
