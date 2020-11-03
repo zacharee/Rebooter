@@ -265,6 +265,9 @@ class MainActivity : AppCompatActivity() {
                     actionState: Int
                 ) {
                     if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
+                        viewHolder as ButtonAdapter.ButtonHolder?
+
+                        viewHolder?.isDragging = true
                         val index = viewHolder?.adapterPosition ?: -1
 
                         //Show or hide the remove button depending
@@ -287,6 +290,10 @@ class MainActivity : AppCompatActivity() {
                     recyclerView: RecyclerView,
                     viewHolder: RecyclerView.ViewHolder
                 ) {
+                    viewHolder as ButtonAdapter.ButtonHolder
+
+                    viewHolder.isDragging = false
+
                     //Reset the button transparency.
                     viewHolder.itemView.alpha = 1.0f
 

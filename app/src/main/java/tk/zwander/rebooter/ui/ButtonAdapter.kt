@@ -1,11 +1,14 @@
 package tk.zwander.rebooter.ui
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
+import android.view.animation.AnticipateInterpolator
+import android.view.animation.OvershootInterpolator
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.skydoves.rainbow.Rainbow
@@ -81,7 +84,10 @@ class ButtonAdapter(private val removalCallback: (ButtonAdapter, ButtonData) -> 
     /**
      * The ViewHolder class for a given button.
      */
+    @SuppressLint("ClickableViewAccessibility")
     inner class ButtonHolder(view: View) : RecyclerView.ViewHolder(view) {
+        var isDragging = false
+
         init {
             itemView.apply {
                 indexObservable.addObserver { _, _ ->
@@ -93,13 +99,38 @@ class ButtonAdapter(private val removalCallback: (ButtonAdapter, ButtonData) -> 
                     //It's possible the item this ViewHolder corresponds
                     //to has changed, so grab it based on the current
                     //position.
-                    val pos = adapterPosition
-                    if (selectedIndex == pos) {
-                        selectedIndex = -1
-                    } else {
-                        val newData = items[pos]
-                        newData.handleReboot()
+                    if (!isDragging) {
+                        val pos = adapterPosition
+                        if (selectedIndex == pos) {
+                            selectedIndex = -1
+                        } else {
+                            val newData = items[pos]
+                            newData.handleReboot()
+                        }
                     }
+                }
+
+                power_frame.setOnTouchListener { v, event ->
+                    when (event.action) {
+                        MotionEvent.ACTION_DOWN -> {
+                            v.animate().cancel()
+                            v.animate()
+                                .scaleX(0.90f)
+                                .scaleY(0.90f)
+                                .setInterpolator(OvershootInterpolator())
+                                .start()
+                        }
+
+                        else -> {
+                            v.animate().cancel()
+                            v.animate()
+                                .scaleX(1.0f)
+                                .scaleY(1.0f)
+                                .setInterpolator(AnticipateInterpolator())
+                                .start()
+                        }
+                    }
+                    false
                 }
 
                 remove_button.setOnClickListener {
