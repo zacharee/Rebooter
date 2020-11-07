@@ -21,6 +21,105 @@
             </intent-filter>
         </activity>
 
+        <service
+            android:name=".ui.qs.DownloadTile"
+            android:icon="@drawable/progress_download"
+            android:label="@string/download"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action
+                    android:name="android.service.quicksettings.action.QS_TILE"/>
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".ui.qs.FastbootTile"
+            android:icon="@drawable/hammer_wrench"
+            android:label="@string/fastboot"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action
+                    android:name="android.service.quicksettings.action.QS_TILE"/>
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".ui.qs.FastbootdTile"
+            android:icon="@drawable/hammer_wrench"
+            android:label="@string/fastbootd"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action
+                    android:name="android.service.quicksettings.action.QS_TILE"/>
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".ui.qs.KillSystemUITile"
+            android:icon="@drawable/cancel"
+            android:label="@string/kill_system_ui"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action
+                    android:name="android.service.quicksettings.action.QS_TILE"/>
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".ui.qs.QuickRebootTile"
+            android:icon="@drawable/cached"
+            android:label="@string/quick_reboot"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action
+                    android:name="android.service.quicksettings.action.QS_TILE"/>
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".ui.qs.RebootTile"
+            android:icon="@drawable/restart"
+            android:label="@string/reboot"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action
+                    android:name="android.service.quicksettings.action.QS_TILE"/>
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".ui.qs.RecoveryTile"
+            android:icon="@drawable/bug"
+            android:label="@string/recovery"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action
+                    android:name="android.service.quicksettings.action.QS_TILE"/>
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".ui.qs.SafeModeTile"
+            android:icon="@drawable/shield_check"
+            android:label="@string/safe_mode"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action
+                    android:name="android.service.quicksettings.action.QS_TILE"/>
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".ui.qs.ShutDownTile"
+            android:icon="@drawable/power"
+            android:label="@string/shut_down"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action
+                    android:name="android.service.quicksettings.action.QS_TILE"/>
+            </intent-filter>
+        </service>
+
         <meta-data android:name="google_analytics_adid_collection_enabled" android:value="false" />
     </application>
 
