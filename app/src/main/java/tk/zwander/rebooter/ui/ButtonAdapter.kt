@@ -94,11 +94,6 @@ class ButtonAdapter(private val removalCallback: (ButtonAdapter, ButtonData) -> 
                     remove_button.isVisible = selectedIndex == adapterPosition
                 }
 
-                setOnTouchListener { _, event ->
-                    power_frame.handleEvent(event)
-                    false
-                }
-
                 //Respond to click events.
                 power_frame.setOnClickListener {
                     //It's possible the item this ViewHolder corresponds
