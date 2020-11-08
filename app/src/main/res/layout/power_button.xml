@@ -16,7 +16,7 @@
         android:layout_gravity="center"
         android:gravity="center">
 
-        <com.google.android.material.card.MaterialCardView
+        <tk.zwander.rebooter.ui.views.TouchResponsiveMaterialCardView
             android:id="@+id/power_frame"
             android:layout_width="@dimen/card_width"
             android:layout_height="@dimen/card_height"
@@ -52,7 +52,7 @@
                 tools:src="@drawable/power"
                 />
 
-        </com.google.android.material.card.MaterialCardView>
+        </tk.zwander.rebooter.ui.views.TouchResponsiveMaterialCardView>
 
         <TextView
             android:id="@+id/power_text"

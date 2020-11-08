@@ -94,6 +94,13 @@ class ButtonAdapter(private val removalCallback: (ButtonAdapter, ButtonData) -> 
                     remove_button.isVisible = selectedIndex == adapterPosition
                 }
 
+                setOnTouchListener { _, event ->
+                    if (event.action == MotionEvent.ACTION_DOWN || event.action == MotionEvent.ACTION_UP) {
+                        power_frame.handleEvent(event)
+                    }
+                    false
+                }
+
                 //Respond to click events.
                 power_frame.setOnClickListener {
                     //It's possible the item this ViewHolder corresponds
@@ -108,29 +115,6 @@ class ButtonAdapter(private val removalCallback: (ButtonAdapter, ButtonData) -> 
                             newData.handleReboot()
                         }
                     }
-                }
-
-                power_frame.setOnTouchListener { v, event ->
-                    when (event.action) {
-                        MotionEvent.ACTION_DOWN -> {
-                            v.animate().cancel()
-                            v.animate()
-                                .scaleX(0.90f)
-                                .scaleY(0.90f)
-                                .setInterpolator(OvershootInterpolator())
-                                .start()
-                        }
-
-                        else -> {
-                            v.animate().cancel()
-                            v.animate()
-                                .scaleX(1.0f)
-                                .scaleY(1.0f)
-                                .setInterpolator(AnticipateInterpolator())
-                                .start()
-                        }
-                    }
-                    false
                 }
 
                 remove_button.setOnClickListener {

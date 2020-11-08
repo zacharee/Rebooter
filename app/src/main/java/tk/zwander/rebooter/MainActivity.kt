@@ -9,6 +9,7 @@ import android.content.IntentFilter
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.animation.*
@@ -22,6 +23,7 @@ import com.skydoves.rainbow.RainbowOrientation
 import com.skydoves.rainbow.contextColor
 import com.topjohnwu.superuser.Shell
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.power_button.view.*
 import tk.zwander.rebooter.ui.AddButtonDialog
 import tk.zwander.rebooter.ui.ButtonAdapter
 import tk.zwander.rebooter.util.FadeScaleAnimator
@@ -293,6 +295,7 @@ class MainActivity : AppCompatActivity() {
                     viewHolder as ButtonAdapter.ButtonHolder
 
                     viewHolder.isDragging = false
+//                    viewHolder.itemView.power_frame.handleEvent(MotionEvent.obtain(0L, 0L, MotionEvent.ACTION_UP, 0f, 0f, 0))
 
                     //Reset the button transparency.
                     viewHolder.itemView.alpha = 1.0f
