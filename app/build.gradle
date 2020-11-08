@@ -15,7 +15,7 @@ android {
         applicationId "tk.zwander.rebooter"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 4
+        versionCode 5
         versionName versionCode.toString()
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
