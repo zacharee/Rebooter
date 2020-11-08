@@ -105,7 +105,10 @@ class ButtonAdapter(private val removalCallback: (ButtonAdapter, ButtonData) -> 
                             selectedIndex = -1
                         } else {
                             val newData = items[pos]
-                            newData.handleReboot()
+
+                            postDelayed({
+                                newData.handleReboot()
+                            }, 100)
                         }
                     }
                 }
