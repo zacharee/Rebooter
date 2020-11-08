@@ -95,9 +95,7 @@ class ButtonAdapter(private val removalCallback: (ButtonAdapter, ButtonData) -> 
                 }
 
                 setOnTouchListener { _, event ->
-                    if (event.action == MotionEvent.ACTION_DOWN || event.action == MotionEvent.ACTION_UP) {
-                        power_frame.handleEvent(event)
-                    }
+                    power_frame.handleEvent(event)
                     false
                 }
 
