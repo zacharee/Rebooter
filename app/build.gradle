@@ -52,7 +52,7 @@ dependencies {
     implementation 'jp.wasabeef:recyclerview-animators:4.0.1'
 
     implementation 'com.google.firebase:firebase-analytics-ktx:18.0.0'
-    implementation 'com.google.firebase:firebase-crashlytics-ktx:17.2.2'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx:17.3.0'
 
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
